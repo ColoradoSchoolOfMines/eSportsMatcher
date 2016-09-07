@@ -28,16 +28,18 @@ Ruby on Rails web app to match participants in CSM eSports tournaments more fair
 ## Dependencies
 * Ruby (Which version?)
 * Ruby on Rails (Also ... which version?)
-* Other stuffs?
+* Other stuff?
 
 ## Installation Instructions
+TBD
 
 ## Usage Instructions
+TBD
 
 ## Contributors
-C. Travis Johnson [cjohnso0@mymail.mines.edu](mailto:cjohnso0@mymail.mines.edu)
-Alan Champion
-Will Kelly
-Kevin Pham
-Yash Sinha
+* C. Travis Johnson [cjohnso0@mymail.mines.edu](mailto:cjohnso0@mymail.mines.edu)
+* Alan Champion
+* Will Kelly
+* Kevin Pham
+* Yash Sinha
 
