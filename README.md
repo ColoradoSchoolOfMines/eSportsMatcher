@@ -26,15 +26,21 @@ Ruby on Rails web app to match participants in CSM eSports tournaments more fair
 * Tuesday, Devember 6: Beta Release Party!
 
 ## Dependencies
-* Ruby (Which version?)
-* Ruby on Rails (Also ... which version?)
-* Other stuff?
+* Ruby (version 2.2.2 or newer)
+* Ruby on Rails (version 5 or newer)
+* sqlite3
 
 ## Installation Instructions
-TBD
+### For Debian/Ubuntu Systems
+* Install ruby version 2.3 `sudo apt-get install ruby2.3 ruby2.3-dev`
+* Install sqlite3 `sudo apt-get install sqlite3`
+* Install rails `sudo gem install rails`
+* Once complete you should be able to successfully run `sqlite3 --version`, `ruby -v`, and `rails --version` and ensure your versions meet the dependency requirements of the previous section.
 
 ## Usage Instructions
-TBD
+* Rails comes with the [puma](http://puma.io/) out of the box. Puma is a ruby webserver, and can be started by running `bin/rails server` from the root directory of the rails project.
+* With Puma running, running the app should be as simple as opening a browser and navigating to [localhost:3000](http://localhost:3000/)
+* If you have never used Ruby on Rails before, there is a great tutorial located [here, and is a great place to start!](http://guides.rubyonrails.org/getting_started.html).
 
 ## Contributors
 * C. Travis Johnson [cjohnso0@mymail.mines.edu](mailto:cjohnso0@mymail.mines.edu)
