@@ -1,5 +1,5 @@
 # eSportsMatcher
-Ruby on Rails web app to match participants in CSM eSports tournaments more fairly and automatically. THIS WILL CAUSE A MERGE CONFLICT! I THINK.
+Ruby on Rails web app to match participants in CSM eSports tournaments more fairly and automatically.
 
 ## Goals (User Stories)
 1. Users can create and edit their own profiles.
