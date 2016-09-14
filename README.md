@@ -46,6 +46,6 @@ Ruby on Rails web app to match participants in CSM eSports tournaments more fair
 * C. Travis Johnson [cjohnso0@mymail.mines.edu](mailto:cjohnso0@mymail.mines.edu)
 * Alan Champion
 * Will Kelly
-* Kevin Pham
+* Kevin Pham [kpham@mymail.mines.edu](mailto:kpham@mymail.mines.edu)
 * Yash Sinha
 
