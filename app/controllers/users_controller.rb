@@ -10,6 +10,7 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.save
+      log_in @user
       flash[:success] = "Thank you for registering for the eSports matching engine!"
       redirect_to @user
     else
