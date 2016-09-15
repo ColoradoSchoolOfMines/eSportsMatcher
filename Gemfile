@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+# Use bcrypt for cryptography/hash functions
+gem 'bcrypt'
 # Use boostrap-sass for bootstrap css
 gem 'bootstrap-sass'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
