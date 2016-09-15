@@ -40,7 +40,10 @@ Ruby on Rails web app to match participants in CSM eSports tournaments more fair
 ## Usage Instructions
 * Rails comes with the [puma](http://puma.io/) out of the box. Puma is a ruby webserver, and can be started by running `bin/rails server` from the root directory of the rails project.
 * With Puma running, running the app should be as simple as opening a browser and navigating to [localhost:3000](http://localhost:3000/)
-* If you have never used Ruby on Rails before, there is a great tutorial located [here, and is a great place to start!](http://guides.rubyonrails.org/getting_started.html).
+
+### Getting Started Learning Rails
+* If you have never used Ruby on Rails before, there is a great crash course located [here, and is a great place to start!](http://guides.rubyonrails.org/getting_started.html).
+* If you are less familiar with software/web development in general, [this tutorial](https://www.railstutorial.org/book/beginning) gives a deeper backgroundand has more links to fill in knowledge gaps you may have.
 
 ## Contributors
 * C. Travis Johnson [cjohnso0@mymail.mines.edu](mailto:cjohnso0@mymail.mines.edu)
