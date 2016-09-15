@@ -29,10 +29,12 @@ textarea {
 
 .logos img {
 	max-height: 100px;
+	vertical-align: middle;
 }
 
 .logos img#mines_logo {
 	float: right;
+	max-width: 75%;
 }
 
 /* typography */
