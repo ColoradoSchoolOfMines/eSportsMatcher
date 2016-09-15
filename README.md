@@ -1,6 +1,8 @@
 # eSportsMatcher
 Ruby on Rails web app to match participants in CSM eSports tournaments more fairly and automatically.
 
+A deployment of this application is hosted by Heroku at [https://e-sports-matcher.herokuapp.com/](https://e-sports-matcher.herokuapp.com/); although, there are *some* plans to build a server at Mines on which to host the app in the future.
+
 ## Goals (User Stories)
 1. Users can create and edit their own profiles.
 2. Users can register for individual tournaments.
@@ -28,7 +30,7 @@ Ruby on Rails web app to match participants in CSM eSports tournaments more fair
 ## Dependencies
 * Ruby (version 2.2.2 or newer)
 * Ruby on Rails (version 5 or newer)
-* sqlite3
+* sqlite3 (Heroku, the deployment environment uses postgres)
 
 ## Installation Instructions
 ### For Debian/Ubuntu Systems
@@ -43,12 +45,11 @@ Ruby on Rails web app to match participants in CSM eSports tournaments more fair
 
 ### Getting Started Learning Rails
 * If you have never used Ruby on Rails before, there is a great crash course located [here, and is a great place to start!](http://guides.rubyonrails.org/getting_started.html).
-* If you are less familiar with software/web development in general, [this tutorial](https://www.railstutorial.org/book/beginning) gives a deeper backgroundand has more links to fill in knowledge gaps you may have.
+* If you are less familiar with software/web development in general, [this tutorial](https://www.railstutorial.org/book/beginning) gives a deeper backgroundand has more links to fill in knowledge gaps you may have. Actually, this tutorial covers great concepts like Test Driven Development and git workflows!
 
 ## Contributors
 * C. Travis Johnson [cjohnso0@mymail.mines.edu](mailto:cjohnso0@mymail.mines.edu)
-* Alan Champion
-* Will Kelly
+* Alan Champion [achampio@mymail.mines.edu](mailto:achampio@mymail.mines.edu)
+* Will Kelly [wikelly@mymail.mines.edu](mailto:wikelly@mymail.mines.edu)
 * Kevin Pham [kpham@mymail.mines.edu](mailto:kpham@mymail.mines.edu)
-* Yash Sinha
-
+* Yash Sinha [ysinha@mymail.mines.edu](mailto:ysinha@mymail.mines.edu)
