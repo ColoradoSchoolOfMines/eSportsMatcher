@@ -3047,3 +3047,479 @@ Migrating to AddAdminToUsers (20160916141343)
   [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-99@example.com"], ["LIMIT", 1]]
   [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest") VALUES (?, ?, ?, ?, ?)[0m  [["name", "Otha Lakin"], ["email", "fake-99@example.com"], ["created_at", 2016-09-16 14:15:38 UTC], ["updated_at", 2016-09-16 14:15:38 UTC], ["password_digest", "$2a$10$zLueG0lZeAhQ3TX39tK0eeKpi0OVq71KcsYc9vCp.WIMLcJzf901a"]]
   [1m[35m (35.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to AddActivationToUsers (20160916190452)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (1.0ms)[0m  [1m[35mALTER TABLE "users" ADD "activation_digest" varchar[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "activated" boolean DEFAULT 'f'[0m
+  [1m[35m (0.1ms)[0m  [1m[35mALTER TABLE "users" ADD "activated_at" datetime[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160916190452"]]
+  [1m[35m (15.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", :environment]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", :environment]]
+  [1m[36mActiveRecord::SchemaMigration Load (0.0ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.0ms)[0m  [1m[34mSELECT "ar_internal_metadata"."value" FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ?[0m  [["key", :environment]]
+  [1m[35m (12.4ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" varchar NOT NULL PRIMARY KEY)[0m
+  [1m[35m (12.4ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" varchar NOT NULL PRIMARY KEY, "value" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to CreateUsers (20160915145539)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.4ms)[0m  [1m[35mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "name" varchar, "email" varchar, "created_at" datetime NOT NULL, "updated_at" datetime NOT NULL)[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160915145539"]]
+  [1m[35m (21.5ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddIndexToUsersEmail (20160915161550)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[34mselect sqlite_version(*)[0m
+  [1m[35m (0.2ms)[0m  [1m[35mCREATE UNIQUE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160915161550"]]
+  [1m[35m (11.9ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddPasswordDigestToUsers (20160915162254)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "password_digest" varchar[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160915162254"]]
+  [1m[35m (23.7ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddRememberDigestToUsers (20160915224657)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "remember_digest" varchar[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160915224657"]]
+  [1m[35m (20.4ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddAdminToUsers (20160916141343)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "admin" boolean DEFAULT 'f'[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160916141343"]]
+  [1m[35m (12.1ms)[0m  [1m[36mcommit transaction[0m
+Migrating to AddActivationToUsers (20160916190452)
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35m (0.3ms)[0m  [1m[35mALTER TABLE "users" ADD "activation_digest" varchar[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "activated" boolean DEFAULT 'f'[0m
+  [1m[35m (0.2ms)[0m  [1m[35mALTER TABLE "users" ADD "activated_at" datetime[0m
+  [1m[35mSQL (0.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES (?)[0m  [["version", "20160916190452"]]
+  [1m[35m (11.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::InternalMetadata Load (0.2ms)[0m  [1m[34mSELECT  "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = ? LIMIT ?[0m  [["key", :environment], ["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["key", "environment"], ["value", "development"], ["created_at", 2016-09-16 19:10:47 UTC], ["updated_at", 2016-09-16 19:10:47 UTC]]
+  [1m[35m (16.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.1ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[34m            SELECT sql
+            FROM sqlite_master
+            WHERE name='index_users_on_email' AND type='index'
+            UNION ALL
+            SELECT sql
+            FROM sqlite_temp_master
+            WHERE name='index_users_on_email' AND type='index'
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.2ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.3ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (1.9ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "admin", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Example User"], ["email", "fake@example.com"], ["created_at", 2016-09-16 19:10:50 UTC], ["updated_at", 2016-09-16 19:10:50 UTC], ["password_digest", "$2a$10$yCaMQxaCgCMWf.kmwXSfHOnfhnJhDUXqGhsB6SUkhuc2k3Zv9gC7W"], ["admin", true], ["activation_digest", "$2a$10$T0/5WZDwcwvxW/kba8y5MuYiiSTSjDnbQywMqs2Y9uZcOoOpFLf7K"], ["activated", true], ["activated_at", 2016-09-16 19:10:50 UTC]]
+  [1m[35m (14.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-1@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Trycia O'Keefe"], ["email", "fake-1@example.com"], ["created_at", 2016-09-16 19:10:51 UTC], ["updated_at", 2016-09-16 19:10:51 UTC], ["password_digest", "$2a$10$fM70gfN0QU.YMy.unzZpE./cj7JyhCDSq/CdxSJjVq8vTOrosejnm"], ["activation_digest", "$2a$10$ZnIU/GAT1OCvclPOS/I9a.SfQPItpIevcHavLwCoSZeRYyqVvW.kK"], ["activated", true], ["activated_at", 2016-09-16 19:10:51 UTC]]
+  [1m[35m (12.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-2@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Dr. Rosalia Upton"], ["email", "fake-2@example.com"], ["created_at", 2016-09-16 19:10:51 UTC], ["updated_at", 2016-09-16 19:10:51 UTC], ["password_digest", "$2a$10$xNR.r3X/9IcmwFfHPRcgD.lS.k.Ac43ZS4oHPUhVvFNpsKekDimpG"], ["activation_digest", "$2a$10$zLaghJe6CVpMtry/FVmNtuh/bLl5g8rEGhrFbEOB6FrBOM6J0QQ06"], ["activated", true], ["activated_at", 2016-09-16 19:10:51 UTC]]
+  [1m[35m (21.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-3@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Rosetta McGlynn"], ["email", "fake-3@example.com"], ["created_at", 2016-09-16 19:10:51 UTC], ["updated_at", 2016-09-16 19:10:51 UTC], ["password_digest", "$2a$10$qElzLmuAYdVBZ3dcDdqUg.vlOxgTXGBsM7SyYVyy/as2dD2XfvQbe"], ["activation_digest", "$2a$10$5vrKOVjzxAnvTsL8mN/HPO7TSMcC4dwcrZmaB.V0Bs.om0Lk/qHXe"], ["activated", true], ["activated_at", 2016-09-16 19:10:51 UTC]]
+  [1m[35m (11.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-4@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Electa Kuhic"], ["email", "fake-4@example.com"], ["created_at", 2016-09-16 19:10:51 UTC], ["updated_at", 2016-09-16 19:10:51 UTC], ["password_digest", "$2a$10$jvixDf0.b9ZHy3IWa0P1IO.9Zn3QDTGZKN/mC0BrDRqIcHlkoebZO"], ["activation_digest", "$2a$10$RRcHRV9XTZn9SnnaYJnuCedpelsczDgr6WMDAPNX.F6vxkkkAbs0S"], ["activated", true], ["activated_at", 2016-09-16 19:10:51 UTC]]
+  [1m[35m (12.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-5@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Royce Hilll"], ["email", "fake-5@example.com"], ["created_at", 2016-09-16 19:10:51 UTC], ["updated_at", 2016-09-16 19:10:51 UTC], ["password_digest", "$2a$10$uHb0YaeJEpisjZK.eYKRhupkRYdbzspgZdFTbFvvasbVq0kIsTAQG"], ["activation_digest", "$2a$10$X3XZGFdb9.MYJ6WTQlM9DO5S./sJ/7FcOpJcAhrA.hlKQ7srcvoV2"], ["activated", true], ["activated_at", 2016-09-16 19:10:51 UTC]]
+  [1m[35m (17.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-6@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Tamia Dickens I"], ["email", "fake-6@example.com"], ["created_at", 2016-09-16 19:10:52 UTC], ["updated_at", 2016-09-16 19:10:52 UTC], ["password_digest", "$2a$10$/xnz4mSiTRAacODottBm4.KcYD2IU2r1rZZQ97DJ.YTQmE8bAxjyS"], ["activation_digest", "$2a$10$YPfa212hl74ot.MIhzdVTOULX7Ep2n6eUnlDOyGrXNux9CzEudFnS"], ["activated", true], ["activated_at", 2016-09-16 19:10:51 UTC]]
+  [1m[35m (11.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-7@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Mr. Margarett Robel"], ["email", "fake-7@example.com"], ["created_at", 2016-09-16 19:10:52 UTC], ["updated_at", 2016-09-16 19:10:52 UTC], ["password_digest", "$2a$10$segebJ.LjbBTxRxpJrYHGuSIEeoWPYLQCB9T7fdnAtfN1LE/YCcG."], ["activation_digest", "$2a$10$YW3ceLFG/nGqhoLdiNe9.embKVzVZAL/OVZuTV8k6jwgHDMGdhUva"], ["activated", true], ["activated_at", 2016-09-16 19:10:52 UTC]]
+  [1m[35m (11.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-8@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Mrs. Katharina Price"], ["email", "fake-8@example.com"], ["created_at", 2016-09-16 19:10:52 UTC], ["updated_at", 2016-09-16 19:10:52 UTC], ["password_digest", "$2a$10$XGQC4JC2fWwC46cdz6lKz.WzXdgCzU9kjV1fBpj2QX9FF.mPsxgYq"], ["activation_digest", "$2a$10$pF0I8Hsh1f42X4W1CZUWIeaIecebSRil38nnNweidLtiBcdiYz7Ku"], ["activated", true], ["activated_at", 2016-09-16 19:10:52 UTC]]
+  [1m[35m (12.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-9@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Edwina Boyle MD"], ["email", "fake-9@example.com"], ["created_at", 2016-09-16 19:10:52 UTC], ["updated_at", 2016-09-16 19:10:52 UTC], ["password_digest", "$2a$10$0HY6pWxqQi59wpvXxig5ouNbU.EsPVJF592vIFVsTiP3Ei1tnvO7W"], ["activation_digest", "$2a$10$XjwxCfdQQuDA8JBIQU1gge2UofjOJSfdwZtVFgh0q6UQSy/e02K6S"], ["activated", true], ["activated_at", 2016-09-16 19:10:52 UTC]]
+  [1m[35m (12.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-10@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Thelma Tillman"], ["email", "fake-10@example.com"], ["created_at", 2016-09-16 19:10:52 UTC], ["updated_at", 2016-09-16 19:10:52 UTC], ["password_digest", "$2a$10$8/7H3meJCP0UDE1QhDdlmOi7UwAD07QaXDAlZOaKo/N8Jd/1RCQpK"], ["activation_digest", "$2a$10$one2jmY03ZIdwm2s1iNuW.ljmhFudkmaNYMtra3IpODftoHQtRjLa"], ["activated", true], ["activated_at", 2016-09-16 19:10:52 UTC]]
+  [1m[35m (21.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-11@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Fritz Davis"], ["email", "fake-11@example.com"], ["created_at", 2016-09-16 19:10:52 UTC], ["updated_at", 2016-09-16 19:10:52 UTC], ["password_digest", "$2a$10$5G/WOGundHdVqcUK1RVUMOTWY1BNJaTv8zOziYDhuSlhls6qtBHga"], ["activation_digest", "$2a$10$mhyf7BKWqrix6KaOc1tNUOSR4/56BXTZ/Muk.RFIF9l6WHkQL731G"], ["activated", true], ["activated_at", 2016-09-16 19:10:52 UTC]]
+  [1m[35m (24.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-12@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Dr. Reba Brown"], ["email", "fake-12@example.com"], ["created_at", 2016-09-16 19:10:52 UTC], ["updated_at", 2016-09-16 19:10:52 UTC], ["password_digest", "$2a$10$.f0s90pg9PGoPh5xzn0WPeeUXMfL9Yi87IN2s0NZf17oJfUf9DK5e"], ["activation_digest", "$2a$10$VIZ9zMs8EvTtv1X0JwYGvO7oHvfG1GWl0x5pgzZmf3I4FyOSocgQa"], ["activated", true], ["activated_at", 2016-09-16 19:10:52 UTC]]
+  [1m[35m (12.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-13@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Rowland Schiller"], ["email", "fake-13@example.com"], ["created_at", 2016-09-16 19:10:53 UTC], ["updated_at", 2016-09-16 19:10:53 UTC], ["password_digest", "$2a$10$79hloi9KWFy50HHp/QBGNu4edKkLG8e89Zbxo1jFnHxb99cu36qOS"], ["activation_digest", "$2a$10$loPQuNo.IytLMvDPZOfDGezDBeUrJrEEHIz9iNkiCZstMwyxrXNqm"], ["activated", true], ["activated_at", 2016-09-16 19:10:52 UTC]]
+  [1m[35m (21.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-14@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Noemi Oberbrunner V"], ["email", "fake-14@example.com"], ["created_at", 2016-09-16 19:10:53 UTC], ["updated_at", 2016-09-16 19:10:53 UTC], ["password_digest", "$2a$10$/RxyfjckJYZcP1Bl8QE29uZPyURFiXiBTTiElNRDqeXzWdDyFH0UK"], ["activation_digest", "$2a$10$BfFVLqaM4a/cLgN7tJmgvOBRNx7pe7Uwn01/zdsDVK6pQz63IzkNK"], ["activated", true], ["activated_at", 2016-09-16 19:10:53 UTC]]
+  [1m[35m (18.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-15@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Jeramie Wolff MD"], ["email", "fake-15@example.com"], ["created_at", 2016-09-16 19:10:53 UTC], ["updated_at", 2016-09-16 19:10:53 UTC], ["password_digest", "$2a$10$7zJZ4u2S/49FcRc1UbHpHeJu6MTwU0X1t.QPgxwNhKS45FwXBEZZe"], ["activation_digest", "$2a$10$kRqJD0WxPaeaPxeoPQ2/ouorC9JLbgbMqXhSwfFKt6M3Zx51CznxW"], ["activated", true], ["activated_at", 2016-09-16 19:10:53 UTC]]
+  [1m[35m (22.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-16@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Timmothy Lynch V"], ["email", "fake-16@example.com"], ["created_at", 2016-09-16 19:10:53 UTC], ["updated_at", 2016-09-16 19:10:53 UTC], ["password_digest", "$2a$10$1kH5oOQXKfSdFHTqMzY8.O3X9jSVFOSncuWpcNO.i6NBF9ubCz3/y"], ["activation_digest", "$2a$10$g4toHLqOxkzz31WIhFjLEuW/zKPUiUWYt6WNAgwU34SfZj1hoRqOK"], ["activated", true], ["activated_at", 2016-09-16 19:10:53 UTC]]
+  [1m[35m (17.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-17@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Kris Tremblay"], ["email", "fake-17@example.com"], ["created_at", 2016-09-16 19:10:53 UTC], ["updated_at", 2016-09-16 19:10:53 UTC], ["password_digest", "$2a$10$1orkoUBtjPLW7wFJxIqFl.KcKmKU07TNwKjuq6Nt2y8ABqOYAG3Au"], ["activation_digest", "$2a$10$UDqT/18iDkOI0InWfgcnReAwP.rCYE8NmU0qvfSVzKmNTxGmnKrEy"], ["activated", true], ["activated_at", 2016-09-16 19:10:53 UTC]]
+  [1m[35m (31.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-18@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Mrs. Akeem Goldner"], ["email", "fake-18@example.com"], ["created_at", 2016-09-16 19:10:53 UTC], ["updated_at", 2016-09-16 19:10:53 UTC], ["password_digest", "$2a$10$GqqZStOF2OEMXpqfyQUQm.lN4q1WTjx/BzLLHN1xFP35biakjxmcW"], ["activation_digest", "$2a$10$AUXclvi9lS4zQd4mw2jFl.TjJCZpoKogScHZp33ti8TCn47OjOnby"], ["activated", true], ["activated_at", 2016-09-16 19:10:53 UTC]]
+  [1m[35m (17.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-19@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Mya Schiller"], ["email", "fake-19@example.com"], ["created_at", 2016-09-16 19:10:53 UTC], ["updated_at", 2016-09-16 19:10:53 UTC], ["password_digest", "$2a$10$2W843iZHomzbvbi3OBeGSufUq4eojpopkCoKY3Qgl64Wf1j3eUSiW"], ["activation_digest", "$2a$10$Ay4ovIHjtze4/C3fISa8ju6SconcZ3tXI1p0stJJYWXSS6X91/6aG"], ["activated", true], ["activated_at", 2016-09-16 19:10:53 UTC]]
+  [1m[35m (24.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-20@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Zoila Zboncak IV"], ["email", "fake-20@example.com"], ["created_at", 2016-09-16 19:10:54 UTC], ["updated_at", 2016-09-16 19:10:54 UTC], ["password_digest", "$2a$10$jz1k6lVBAITaZG/UgCIOpO7bE32Gb5FZs1IcgT1C7RcPNGQyCSKxS"], ["activation_digest", "$2a$10$zibGk0ToBkK4OEI5Qt1.K.bMgRran.X6eSguIiYFi8rG.ZPNOMHxW"], ["activated", true], ["activated_at", 2016-09-16 19:10:54 UTC]]
+  [1m[35m (12.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-21@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Orval Halvorson"], ["email", "fake-21@example.com"], ["created_at", 2016-09-16 19:10:54 UTC], ["updated_at", 2016-09-16 19:10:54 UTC], ["password_digest", "$2a$10$Q8fHRLXKykLvlPxHJCwuQ.MxwUf/cFOZRT0wFvemOCxdDM2MVt1j2"], ["activation_digest", "$2a$10$MyQL/GBQAGi4JwLw4Z6ICuIr9QnalbVntSXwutAwU5YObdENYtZKG"], ["activated", true], ["activated_at", 2016-09-16 19:10:54 UTC]]
+  [1m[35m (19.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-22@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Citlalli Stokes"], ["email", "fake-22@example.com"], ["created_at", 2016-09-16 19:10:54 UTC], ["updated_at", 2016-09-16 19:10:54 UTC], ["password_digest", "$2a$10$1.3Tm5DXtBDIzULj.4EIGeQUSm7E4yPdhTYc3VLfviI1DJkV1GTUK"], ["activation_digest", "$2a$10$hSDaEaYEXjchG1aqvGO4LO0mEKRCViqbFAUW1uMyFnVCxmQgPUmFG"], ["activated", true], ["activated_at", 2016-09-16 19:10:54 UTC]]
+  [1m[35m (11.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-23@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Kody Leffler"], ["email", "fake-23@example.com"], ["created_at", 2016-09-16 19:10:54 UTC], ["updated_at", 2016-09-16 19:10:54 UTC], ["password_digest", "$2a$10$ipYkSahhWnWKkzRHRJDLe.FdW.5CcXqORB7MPAImra4TfDpdAmGiS"], ["activation_digest", "$2a$10$DPy6seVvfl0v58ee/V.oOeuserXXXMfTF7ayItLJfoTIH8sRsX23G"], ["activated", true], ["activated_at", 2016-09-16 19:10:54 UTC]]
+  [1m[35m (11.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-24@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Jaleel Borer"], ["email", "fake-24@example.com"], ["created_at", 2016-09-16 19:10:54 UTC], ["updated_at", 2016-09-16 19:10:54 UTC], ["password_digest", "$2a$10$jHIgfc7d1Zbn8uHYhlHI/u5h3HB1W4hlkmAg/gBHU6koaJsuqTUVe"], ["activation_digest", "$2a$10$NLNNAF72y7e7JONoSRO1puT8Pa7uiDlPALx2/po89QVhnZJAU2K32"], ["activated", true], ["activated_at", 2016-09-16 19:10:54 UTC]]
+  [1m[35m (12.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-25@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Cecil Medhurst PhD"], ["email", "fake-25@example.com"], ["created_at", 2016-09-16 19:10:54 UTC], ["updated_at", 2016-09-16 19:10:54 UTC], ["password_digest", "$2a$10$xdjz0.tesRUcp0xN/NCBrufSNdL77fxymwrsTBEIE3t7Tf.nwuhG2"], ["activation_digest", "$2a$10$DM7yvrWiUyX1.9z7J3geR.xdKyinEiMYVZlTjlYMv7uJR6SQDe21m"], ["activated", true], ["activated_at", 2016-09-16 19:10:54 UTC]]
+  [1m[35m (23.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-26@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Teagan Johns"], ["email", "fake-26@example.com"], ["created_at", 2016-09-16 19:10:55 UTC], ["updated_at", 2016-09-16 19:10:55 UTC], ["password_digest", "$2a$10$ybwua.BUkvz032ue3ZkG1.13rDCOCt71TSTirCQPvsRJWMZbguLse"], ["activation_digest", "$2a$10$wOiKLkmkcO9PON1eRvlsHu8ihQJid0O9mjIZs7VcIg18j2qGD8day"], ["activated", true], ["activated_at", 2016-09-16 19:10:54 UTC]]
+  [1m[35m (11.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-27@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Gideon Mann"], ["email", "fake-27@example.com"], ["created_at", 2016-09-16 19:10:55 UTC], ["updated_at", 2016-09-16 19:10:55 UTC], ["password_digest", "$2a$10$yXXFNy7P/rRr1oFV/R/1Du69WmP7Z.IGNWUCzg4XK4GUvMgT2Gtsm"], ["activation_digest", "$2a$10$qnZ5tDb4oUWL/SqmhJBRqOe/P3RYBOZI4FpZyMTM7PEMif8L.BCZC"], ["activated", true], ["activated_at", 2016-09-16 19:10:55 UTC]]
+  [1m[35m (12.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-28@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Margaretta Dicki"], ["email", "fake-28@example.com"], ["created_at", 2016-09-16 19:10:55 UTC], ["updated_at", 2016-09-16 19:10:55 UTC], ["password_digest", "$2a$10$ccFUTk4MfYLdwACfd5MTA.oSn13RKJqTdvjwAudaBJBswJlFUN9YG"], ["activation_digest", "$2a$10$tBh0CYdR8B0E.9KBu0M7Ve81BerJjnkLr4j.xdyX0vj.coBeKotHa"], ["activated", true], ["activated_at", 2016-09-16 19:10:55 UTC]]
+  [1m[35m (11.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-29@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Andrew Denesik"], ["email", "fake-29@example.com"], ["created_at", 2016-09-16 19:10:55 UTC], ["updated_at", 2016-09-16 19:10:55 UTC], ["password_digest", "$2a$10$Cc9Eq.71PdUVbePAn0snLOPUVo8O1eAsXGzi/YbWVjaFqO1scJmeS"], ["activation_digest", "$2a$10$hIlVHyd00hf9PreXthCyZ.o/0Id6l8mKUba.jYAkVqOAYX6JrQcj6"], ["activated", true], ["activated_at", 2016-09-16 19:10:55 UTC]]
+  [1m[35m (12.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-30@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Dee Hills"], ["email", "fake-30@example.com"], ["created_at", 2016-09-16 19:10:55 UTC], ["updated_at", 2016-09-16 19:10:55 UTC], ["password_digest", "$2a$10$p.fRQo7vKmI0jv7Oesk4ceKbq0ECtq/8tknIEgR8oioy4EpDuFUxy"], ["activation_digest", "$2a$10$EISAs0EbrgDMgUlC3bx8iO63LVV4SGe7f6.5MeZFhWYTVkujWcr0i"], ["activated", true], ["activated_at", 2016-09-16 19:10:55 UTC]]
+  [1m[35m (24.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-31@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Elizabeth Hahn Jr."], ["email", "fake-31@example.com"], ["created_at", 2016-09-16 19:10:55 UTC], ["updated_at", 2016-09-16 19:10:55 UTC], ["password_digest", "$2a$10$kJgwFT72NUsbUc5nOLLfg.hFRw5oGGVeFnaEcea05S5jDKOe60i8S"], ["activation_digest", "$2a$10$dV6unE1HIu/Q6PACEMmfJuigCs/repCZqgbAHAeHePcgkh0YCvRhy"], ["activated", true], ["activated_at", 2016-09-16 19:10:55 UTC]]
+  [1m[35m (12.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-32@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Berneice Koss"], ["email", "fake-32@example.com"], ["created_at", 2016-09-16 19:10:55 UTC], ["updated_at", 2016-09-16 19:10:55 UTC], ["password_digest", "$2a$10$ZlXyB0NiD1bwn6vUvoE0ROQtr9miPBcQOD1fAx01cIKUdFMjw5pPy"], ["activation_digest", "$2a$10$yf5Q17n41x8XIwNXpoxl1eVNL1Z/zfX9jSh1oC57yERzIF2VOkjfu"], ["activated", true], ["activated_at", 2016-09-16 19:10:55 UTC]]
+  [1m[35m (12.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-33@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Cordia Cartwright"], ["email", "fake-33@example.com"], ["created_at", 2016-09-16 19:10:56 UTC], ["updated_at", 2016-09-16 19:10:56 UTC], ["password_digest", "$2a$10$pqMZ6GdU2ZDu6lcEEw2RSe02f9LJ/dK5CN7fsrZK5VIJzsD5WA7IO"], ["activation_digest", "$2a$10$l/FzeDsCOrSrb2Jat.5BKejTzWew0ybZtObvyu96CY87UILE1eD22"], ["activated", true], ["activated_at", 2016-09-16 19:10:55 UTC]]
+  [1m[35m (12.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-34@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Selmer Murphy"], ["email", "fake-34@example.com"], ["created_at", 2016-09-16 19:10:56 UTC], ["updated_at", 2016-09-16 19:10:56 UTC], ["password_digest", "$2a$10$A/Y/Wkm7.MkanjtcgpT9fuVH8rnVzMz.WGK/CphzstEwa4v2PEYQW"], ["activation_digest", "$2a$10$d46PX0DNEaNJO4kuIEmazuZgBYSE12iwM3LcBMUFWUNdHWhmF/HW6"], ["activated", true], ["activated_at", 2016-09-16 19:10:56 UTC]]
+  [1m[35m (11.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-35@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Audra Feil"], ["email", "fake-35@example.com"], ["created_at", 2016-09-16 19:10:56 UTC], ["updated_at", 2016-09-16 19:10:56 UTC], ["password_digest", "$2a$10$pIc8hDajY5fEFtIGt3ELRejjpMD7WipNDANDVrKyQAl1zEK3yLuOG"], ["activation_digest", "$2a$10$f2N3e7k56PkRyLf/fi/y9.g0HX861MKGaQx4viqil/Q82B.WqCLQ6"], ["activated", true], ["activated_at", 2016-09-16 19:10:56 UTC]]
+  [1m[35m (11.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-36@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Isac Harvey"], ["email", "fake-36@example.com"], ["created_at", 2016-09-16 19:10:56 UTC], ["updated_at", 2016-09-16 19:10:56 UTC], ["password_digest", "$2a$10$rTcPacbxYw2.BT8ElvOb9eeGIkopNrqaeNjgOsI3Dct9hmHQwXLbu"], ["activation_digest", "$2a$10$7t9RSlrplgdUfN.MTuvwheSjslk9zCc6BCajVgLvPqATfL63aOIwK"], ["activated", true], ["activated_at", 2016-09-16 19:10:56 UTC]]
+  [1m[35m (12.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-37@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Cindy Hoppe"], ["email", "fake-37@example.com"], ["created_at", 2016-09-16 19:10:56 UTC], ["updated_at", 2016-09-16 19:10:56 UTC], ["password_digest", "$2a$10$0NokoeGZ/p5ql350VBBbGOSXhfxkuy3v6P/XLj8XZmUHtuG3EEAFe"], ["activation_digest", "$2a$10$cUrydQJ7Tt0eqohXNe6LIeB8KodvkD5RHs5x7vabCs8SEt7De5qPu"], ["activated", true], ["activated_at", 2016-09-16 19:10:56 UTC]]
+  [1m[35m (24.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-38@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Johnnie Bayer V"], ["email", "fake-38@example.com"], ["created_at", 2016-09-16 19:10:56 UTC], ["updated_at", 2016-09-16 19:10:56 UTC], ["password_digest", "$2a$10$TiCH7tO/ZxA8/GIM9tsBr.oMcThS2wR/g52zj4H5NAEFCeiX0q.au"], ["activation_digest", "$2a$10$uBmmCajhuF.PL47WDncD3.aEAxzHY9wGP05lVGXKHsGioKp/ghH2K"], ["activated", true], ["activated_at", 2016-09-16 19:10:56 UTC]]
+  [1m[35m (12.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-39@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Ms. Marjolaine Thiel"], ["email", "fake-39@example.com"], ["created_at", 2016-09-16 19:10:56 UTC], ["updated_at", 2016-09-16 19:10:56 UTC], ["password_digest", "$2a$10$hRIUUALXtrpXw1EGts1FDO38fpUad.gUuFhaAemcBV0jz8VQ7ZmYq"], ["activation_digest", "$2a$10$YsKydlyFwHCOMjRETG7u0OJ/hpzZIA3tRy7ava46LyWjYbWKOa0Hu"], ["activated", true], ["activated_at", 2016-09-16 19:10:56 UTC]]
+  [1m[35m (12.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-40@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Mrs. Angus Beatty"], ["email", "fake-40@example.com"], ["created_at", 2016-09-16 19:10:57 UTC], ["updated_at", 2016-09-16 19:10:57 UTC], ["password_digest", "$2a$10$BCWrefxqow35irDkuuyjSuJpxP7B1i1//eU4CwafJF2nPv/cc8nR."], ["activation_digest", "$2a$10$BwhzpvDRiW3CHiqupXd8A.0KpU/FJtcL9Sh4q6DVihiHDAzQ/XshO"], ["activated", true], ["activated_at", 2016-09-16 19:10:56 UTC]]
+  [1m[35m (17.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-41@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Elliott Lubowitz V"], ["email", "fake-41@example.com"], ["created_at", 2016-09-16 19:10:57 UTC], ["updated_at", 2016-09-16 19:10:57 UTC], ["password_digest", "$2a$10$JzmdhMvX48UZ9AiVY1A/ouZ14uyKoJa9AAq6unIskjULA9BhXtN.S"], ["activation_digest", "$2a$10$K8wyEAAHPra3N8Y/aEhf4.o.7tLd1VKI8UtGgvXDmVWGbHFRq7mBi"], ["activated", true], ["activated_at", 2016-09-16 19:10:57 UTC]]
+  [1m[35m (12.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-42@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Merlin Rogahn II"], ["email", "fake-42@example.com"], ["created_at", 2016-09-16 19:10:57 UTC], ["updated_at", 2016-09-16 19:10:57 UTC], ["password_digest", "$2a$10$2pRgXTh2rwTLiLqjxafWyOyIcuUhFDJhi/CnQwOcKaLEsjPggH466"], ["activation_digest", "$2a$10$AzbQhERkIG.6tvjSAKjpZuKvWYmpW1srHuqKtAVaBLjM7zRoFeTb6"], ["activated", true], ["activated_at", 2016-09-16 19:10:57 UTC]]
+  [1m[35m (12.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-43@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Edwin Hoppe"], ["email", "fake-43@example.com"], ["created_at", 2016-09-16 19:10:57 UTC], ["updated_at", 2016-09-16 19:10:57 UTC], ["password_digest", "$2a$10$vPmHrW6yuOkdoUkKcKdm.OO0g2Ycoxkl6/wO2l4EvBVz74r8E65n6"], ["activation_digest", "$2a$10$ZuwRNe.pPC1a/igie4A4uuQ/eK.stjpUDNyejNFIc.y7JBpbcts5u"], ["activated", true], ["activated_at", 2016-09-16 19:10:57 UTC]]
+  [1m[35m (12.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-44@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Brycen Kertzmann"], ["email", "fake-44@example.com"], ["created_at", 2016-09-16 19:10:57 UTC], ["updated_at", 2016-09-16 19:10:57 UTC], ["password_digest", "$2a$10$GDjE0tSf3cI/WARzjTNfheTBbvQnece9t5599b1aRz4coe3JQ9.vK"], ["activation_digest", "$2a$10$rdcMp8MsAjn2nvMGJBMBD.nMvuSyUxUA08WpXSRP7a8OTcMhcv6Xy"], ["activated", true], ["activated_at", 2016-09-16 19:10:57 UTC]]
+  [1m[35m (12.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-45@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Adele Reinger"], ["email", "fake-45@example.com"], ["created_at", 2016-09-16 19:10:57 UTC], ["updated_at", 2016-09-16 19:10:57 UTC], ["password_digest", "$2a$10$OvsCMvlbz5cCivVZxU7d9.lIpMdIZdovCLQhYemOud1d2P5QYQrtW"], ["activation_digest", "$2a$10$M5LTrLxtKdGEtJM9x431hOMqH8mo7Bv/lCM9p0aVqRUm/.ewEdb3i"], ["activated", true], ["activated_at", 2016-09-16 19:10:57 UTC]]
+  [1m[35m (23.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-46@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Clint Swaniawski"], ["email", "fake-46@example.com"], ["created_at", 2016-09-16 19:10:57 UTC], ["updated_at", 2016-09-16 19:10:57 UTC], ["password_digest", "$2a$10$KNgPP7oEzfvIBCmOqV3wyuLWzciM/q590Fhq5Hpf/OpIc7ZBVfnJ2"], ["activation_digest", "$2a$10$qYf8Qccgsu40M5cuUHiWTe4g.t3Ry9/8/hovy1yDfXr/GBTdZH7DS"], ["activated", true], ["activated_at", 2016-09-16 19:10:57 UTC]]
+  [1m[35m (17.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-47@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Elisabeth Collier II"], ["email", "fake-47@example.com"], ["created_at", 2016-09-16 19:10:58 UTC], ["updated_at", 2016-09-16 19:10:58 UTC], ["password_digest", "$2a$10$5VrTrteuzwqVfZRwvE75iOAQKLsuU2VaKK3VyVF7VqNFq1odi9LKe"], ["activation_digest", "$2a$10$zJH9UB1Vxf55wDSdx7OJvOms6zOfycVdg6KR3bbqECqNAoBRi438G"], ["activated", true], ["activated_at", 2016-09-16 19:10:58 UTC]]
+  [1m[35m (12.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-48@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Michele Rice"], ["email", "fake-48@example.com"], ["created_at", 2016-09-16 19:10:58 UTC], ["updated_at", 2016-09-16 19:10:58 UTC], ["password_digest", "$2a$10$8AgcYN9TIcIorWQ2Q7IT3OrRJ2EZJM193WLHSpUeLmDsjPC.frJUe"], ["activation_digest", "$2a$10$nE/N/3WQSFhAHpLPjgSD3eDEGlm2/li3OQlalKu6so2VF/kOp1r1K"], ["activated", true], ["activated_at", 2016-09-16 19:10:58 UTC]]
+  [1m[35m (12.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-49@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Lesley Greenfelder MD"], ["email", "fake-49@example.com"], ["created_at", 2016-09-16 19:10:58 UTC], ["updated_at", 2016-09-16 19:10:58 UTC], ["password_digest", "$2a$10$ZXQZ4EVVzqC2NQB8mYoM0eG8xhVcqKFAC4lCgCbrKIigPF.pF3PFi"], ["activation_digest", "$2a$10$J2FjzPLKdYx7iwSqsrhU9uxrHADheUp0EupdtXuOQ5KIJqZUOIgK2"], ["activated", true], ["activated_at", 2016-09-16 19:10:58 UTC]]
+  [1m[35m (12.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-50@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Newton Schoen"], ["email", "fake-50@example.com"], ["created_at", 2016-09-16 19:10:58 UTC], ["updated_at", 2016-09-16 19:10:58 UTC], ["password_digest", "$2a$10$KWmHGtzdsUsoU0vKG9ByeOauf3OCpSMUUyw0Yqgy5Y0SfZjJwRdua"], ["activation_digest", "$2a$10$Rl49Yh2ZGqTB2oQ57xPE/.K8Q74FD1ZBidCLUVm5/qhkkcVnQllQi"], ["activated", true], ["activated_at", 2016-09-16 19:10:58 UTC]]
+  [1m[35m (17.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-51@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Mr. Jordan Thiel"], ["email", "fake-51@example.com"], ["created_at", 2016-09-16 19:10:58 UTC], ["updated_at", 2016-09-16 19:10:58 UTC], ["password_digest", "$2a$10$.f6/3AuynAnh7asWxcrYFOez1S9rHlrFr8rH/clDzBM5Of4GRb4g6"], ["activation_digest", "$2a$10$aoVFIlaw9vyJ13PcH4GzTu/oxAukSJ6U0GCYBaGfSSNY9Q/CatQiG"], ["activated", true], ["activated_at", 2016-09-16 19:10:58 UTC]]
+  [1m[35m (23.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-52@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Jamil Reichel IV"], ["email", "fake-52@example.com"], ["created_at", 2016-09-16 19:10:58 UTC], ["updated_at", 2016-09-16 19:10:58 UTC], ["password_digest", "$2a$10$X7vxzSPyzw45vUVqA5w/vOCoS0LaZtp1nVBWIgqCaU7UYAqdaOfGm"], ["activation_digest", "$2a$10$YqfIdRXMJf1Dnz8wLM/fpOyxX3X3W6c4iGtv2PZJoAXMsLC1E4Z/C"], ["activated", true], ["activated_at", 2016-09-16 19:10:58 UTC]]
+  [1m[35m (24.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-53@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Estelle Hickle"], ["email", "fake-53@example.com"], ["created_at", 2016-09-16 19:10:58 UTC], ["updated_at", 2016-09-16 19:10:58 UTC], ["password_digest", "$2a$10$UDRkfxGPUnRAlp8N0baL/eie25Ug2iIhPEVGvhmCVKmAxK0dxWhnm"], ["activation_digest", "$2a$10$GZiUK.uvWdn.ubhsP4aOLO.0iKHZKppT2wmh8XF.gxMVq0r.55Wxq"], ["activated", true], ["activated_at", 2016-09-16 19:10:58 UTC]]
+  [1m[35m (12.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-54@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Caterina Ratke V"], ["email", "fake-54@example.com"], ["created_at", 2016-09-16 19:10:59 UTC], ["updated_at", 2016-09-16 19:10:59 UTC], ["password_digest", "$2a$10$3BcjltizyftsdI12Mc70E.NuLofOR4JYF3bRv26FZJyX5EvDLLWz6"], ["activation_digest", "$2a$10$cn0Ro0Bj4UGqdvvwg9vx/efXI.kd0sqJ0EHmmbVfwnd/wArRy6fFS"], ["activated", true], ["activated_at", 2016-09-16 19:10:59 UTC]]
+  [1m[35m (23.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-55@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Juvenal Frami"], ["email", "fake-55@example.com"], ["created_at", 2016-09-16 19:10:59 UTC], ["updated_at", 2016-09-16 19:10:59 UTC], ["password_digest", "$2a$10$xD1lSJa8miWbCLhi70OhRO0QsbqT4nVORkaaF0rl3yC2GiJ08fG.u"], ["activation_digest", "$2a$10$Vza68Fy9ZVqu4/QG26HS1.BZQ8IMJOsqrWdiA24ZP59Baww1Lflre"], ["activated", true], ["activated_at", 2016-09-16 19:10:59 UTC]]
+  [1m[35m (25.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-56@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Estella Kemmer"], ["email", "fake-56@example.com"], ["created_at", 2016-09-16 19:10:59 UTC], ["updated_at", 2016-09-16 19:10:59 UTC], ["password_digest", "$2a$10$dgF12/QBqerhn1p6wTRK0.mfk6EHx82FhQnfl9g1UGmlvMsRq4oXe"], ["activation_digest", "$2a$10$2cnU9mF5DTf/58RIb4oIe.88PRldaFVnLMMdGU1Z4KCaMZwgK7Z9S"], ["activated", true], ["activated_at", 2016-09-16 19:10:59 UTC]]
+  [1m[35m (12.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-57@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Rowena Bosco"], ["email", "fake-57@example.com"], ["created_at", 2016-09-16 19:10:59 UTC], ["updated_at", 2016-09-16 19:10:59 UTC], ["password_digest", "$2a$10$v7N71iRxVyD3b5FtKEbxkug2yRX8qQTLt88RrvlcMX3fcegoo4jYG"], ["activation_digest", "$2a$10$srbQY/2S1x6lJrth.Tum6OyhJyMqsWAq5pV5lVsjyzjvu/.zlr9qC"], ["activated", true], ["activated_at", 2016-09-16 19:10:59 UTC]]
+  [1m[35m (12.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-58@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Unique Larkin"], ["email", "fake-58@example.com"], ["created_at", 2016-09-16 19:10:59 UTC], ["updated_at", 2016-09-16 19:10:59 UTC], ["password_digest", "$2a$10$Lb/G6EONzC5WX0YrQ2TXUOF43BZSPLmXWYaoT.2ou9P1Ry4ihLpWi"], ["activation_digest", "$2a$10$Zb/4tD/ap1QkEomukHKmKuzvaBYbL4OGLOzVVW7C0A4BSN/jy7aBK"], ["activated", true], ["activated_at", 2016-09-16 19:10:59 UTC]]
+  [1m[35m (12.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-59@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Miss Ellie Mraz"], ["email", "fake-59@example.com"], ["created_at", 2016-09-16 19:10:59 UTC], ["updated_at", 2016-09-16 19:10:59 UTC], ["password_digest", "$2a$10$VfCliuhhRcxdiKkWKvcxUu.b5wyC.7s4DRyem2Pz95yd9h3DjXA/S"], ["activation_digest", "$2a$10$6s2vw12QT7FqVm2ZapvvCexDYDTesHwtHZmU2bGpiVNPpZAV/ZmH6"], ["activated", true], ["activated_at", 2016-09-16 19:10:59 UTC]]
+  [1m[35m (25.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-60@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Colton Klein"], ["email", "fake-60@example.com"], ["created_at", 2016-09-16 19:11:00 UTC], ["updated_at", 2016-09-16 19:11:00 UTC], ["password_digest", "$2a$10$LcVVP7UfRDcBT.vp8ditDe/UNBCsKQEcWGExca2P4GqhDWlaEoTnG"], ["activation_digest", "$2a$10$.p3DMYwlyCo6kBO1GFlA7.c0wV0IbZRpcyrWEqQg4tGtnLJ9IS/vu"], ["activated", true], ["activated_at", 2016-09-16 19:10:59 UTC]]
+  [1m[35m (22.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-61@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Alana Pacocha PhD"], ["email", "fake-61@example.com"], ["created_at", 2016-09-16 19:11:00 UTC], ["updated_at", 2016-09-16 19:11:00 UTC], ["password_digest", "$2a$10$lHc5YVajjFafdLo1xBxbFOdG09OCZ0BhQhmKn8353gHSS1WxBtJX."], ["activation_digest", "$2a$10$oDzEYK.X24DESV3.BM2ri.bFBkuit2.xxNPzeY7yKj8I3cf.u/7C."], ["activated", true], ["activated_at", 2016-09-16 19:11:00 UTC]]
+  [1m[35m (12.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-62@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Sidney Lowe"], ["email", "fake-62@example.com"], ["created_at", 2016-09-16 19:11:00 UTC], ["updated_at", 2016-09-16 19:11:00 UTC], ["password_digest", "$2a$10$BHhw8YFFmj9Yl9d/EtGmLeYKt.eHkuS8BbCTFMiL962S64txBcdmO"], ["activation_digest", "$2a$10$4aMzpr1zdVlYzkXFiHYxpuRux6TkXuMaDVJTMjQT2ofbahOfwRqgu"], ["activated", true], ["activated_at", 2016-09-16 19:11:00 UTC]]
+  [1m[35m (17.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-63@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Emily Waelchi"], ["email", "fake-63@example.com"], ["created_at", 2016-09-16 19:11:00 UTC], ["updated_at", 2016-09-16 19:11:00 UTC], ["password_digest", "$2a$10$9dhifg0pq6wN22z8grwPpe6h8dG5KXsxWqv.1NzqcNesFDi5cwR/m"], ["activation_digest", "$2a$10$L/M2MFJuZK8Y/lDyZKo3o.XF2fcIzIouZJ72635chxcLt0NFFccrq"], ["activated", true], ["activated_at", 2016-09-16 19:11:00 UTC]]
+  [1m[35m (12.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-64@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Waino Nikolaus II"], ["email", "fake-64@example.com"], ["created_at", 2016-09-16 19:11:00 UTC], ["updated_at", 2016-09-16 19:11:00 UTC], ["password_digest", "$2a$10$hbSJIh3Qr6XxjDu.6V.d4O2jlWiqEjbNb013Oxhz1thatqeh5nf2S"], ["activation_digest", "$2a$10$6ckPDnH4cCn8rWXMiWFph.FYZhgfCAUOdMHcQlFOc3vrwsVYWHM5K"], ["activated", true], ["activated_at", 2016-09-16 19:11:00 UTC]]
+  [1m[35m (12.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-65@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Ophelia Corwin"], ["email", "fake-65@example.com"], ["created_at", 2016-09-16 19:11:00 UTC], ["updated_at", 2016-09-16 19:11:00 UTC], ["password_digest", "$2a$10$/bcj7ROyPCDPWxs5tUlmFu4yCdazqyoaHmiInzV3WmlZhaAbktamC"], ["activation_digest", "$2a$10$4nN5eYQ/ucsQa4xRjPrAk.1uTVn3IaVoKm/qtCXN3hFv49yNEqHHG"], ["activated", true], ["activated_at", 2016-09-16 19:11:00 UTC]]
+  [1m[35m (25.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-66@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Miss Misael Koelpin"], ["email", "fake-66@example.com"], ["created_at", 2016-09-16 19:11:00 UTC], ["updated_at", 2016-09-16 19:11:00 UTC], ["password_digest", "$2a$10$y1FX7kqtjmhm35c1MSbLseDQapVNANwUj3pLT221tFmfIDT0Dn1Je"], ["activation_digest", "$2a$10$vYGwfzcCCSR/a.PJQp83NuKC7AnkhwB3RvvI2RR3R0KTda7SXIdjq"], ["activated", true], ["activated_at", 2016-09-16 19:11:00 UTC]]
+  [1m[35m (12.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-67@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Mikel Turner"], ["email", "fake-67@example.com"], ["created_at", 2016-09-16 19:11:01 UTC], ["updated_at", 2016-09-16 19:11:01 UTC], ["password_digest", "$2a$10$LU5MBuq30sv7pDD2E117weT9Zq.ePhIeyDAtqqU/Kb8HssVWtx25m"], ["activation_digest", "$2a$10$xhp1PW/wED120xqEl0LXP.yWFdelv5Uy1niPjCgcC9DthJn.uQW.W"], ["activated", true], ["activated_at", 2016-09-16 19:11:01 UTC]]
+  [1m[35m (17.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-68@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Greta Schultz"], ["email", "fake-68@example.com"], ["created_at", 2016-09-16 19:11:01 UTC], ["updated_at", 2016-09-16 19:11:01 UTC], ["password_digest", "$2a$10$bU/3NvwU13lf4qmdsOeaMOnbBXn9IniChiH6DjnmgJ46Y1hGQbcY."], ["activation_digest", "$2a$10$ItGztoUuY8DPrQgPSHQIcO9HZ8ZvK4sfIhxVvwXuOLWc0QJaWZXcS"], ["activated", true], ["activated_at", 2016-09-16 19:11:01 UTC]]
+  [1m[35m (24.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-69@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Marcia Haley"], ["email", "fake-69@example.com"], ["created_at", 2016-09-16 19:11:01 UTC], ["updated_at", 2016-09-16 19:11:01 UTC], ["password_digest", "$2a$10$CEmzDYZMYSeW80CRk/xEGOJEcuzPTx.0CCjOxJai8lZsXu7er5d/G"], ["activation_digest", "$2a$10$jutaOE88XAvaFwbwhNq5ne84JijzSPCBXwps.UjJ3Xk4vIjEYOKt6"], ["activated", true], ["activated_at", 2016-09-16 19:11:01 UTC]]
+  [1m[35m (11.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-70@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Lennie Lakin"], ["email", "fake-70@example.com"], ["created_at", 2016-09-16 19:11:01 UTC], ["updated_at", 2016-09-16 19:11:01 UTC], ["password_digest", "$2a$10$EzEApnrpdCjT3iv.YtmLG.QRbT/ft1LhUgEPL7F/ctK4qPIBuaQ/K"], ["activation_digest", "$2a$10$hrxo96SIymguMYxRdCy6/e7ncKCysjeYbCB44McW03ctL34yKmcqu"], ["activated", true], ["activated_at", 2016-09-16 19:11:01 UTC]]
+  [1m[35m (12.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-71@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Eduardo Bogisich"], ["email", "fake-71@example.com"], ["created_at", 2016-09-16 19:11:01 UTC], ["updated_at", 2016-09-16 19:11:01 UTC], ["password_digest", "$2a$10$PsgJLn4Yp/KQyYJDxbc0fe4YD8TVKlcU8hhHOj3ynuAV5XcegKoSu"], ["activation_digest", "$2a$10$NkAekLkxvky3BNq9Te.znu0n8QEy8QKeSYs9z437/f1Jdi.TKE2O."], ["activated", true], ["activated_at", 2016-09-16 19:11:01 UTC]]
+  [1m[35m (11.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-72@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Issac Heaney"], ["email", "fake-72@example.com"], ["created_at", 2016-09-16 19:11:01 UTC], ["updated_at", 2016-09-16 19:11:01 UTC], ["password_digest", "$2a$10$B/tMXqufhQOyWwUSVCg4wuyZjN9r56QbwvHjBmrmvbw5KotX8piI2"], ["activation_digest", "$2a$10$wJtYxSGjbrn/yREurxOCtuK6eWHKk6xotSXP/3yFrm5hhOYBnu37y"], ["activated", true], ["activated_at", 2016-09-16 19:11:01 UTC]]
+  [1m[35m (16.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.6ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-73@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Elmore Wehner"], ["email", "fake-73@example.com"], ["created_at", 2016-09-16 19:11:01 UTC], ["updated_at", 2016-09-16 19:11:01 UTC], ["password_digest", "$2a$10$ZLVRy.pY3iBHHZtnspTHJuygYQ5ebyPLoSTu6Veuy2XIz0SflTo1q"], ["activation_digest", "$2a$10$naU3Hq/uApn9JkCqSrWpDezmTdGPAik5eFLYcH/pN9ir0o79omcdC"], ["activated", true], ["activated_at", 2016-09-16 19:11:01 UTC]]
+  [1m[35m (21.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-74@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Kari Zemlak"], ["email", "fake-74@example.com"], ["created_at", 2016-09-16 19:11:02 UTC], ["updated_at", 2016-09-16 19:11:02 UTC], ["password_digest", "$2a$10$iILYdCx2x3/eQ/TjUug6ce4AppvzRCLBdDRl3RjtPXMa.iSfd27Ae"], ["activation_digest", "$2a$10$MnqcVVB3bGGzN8wL8GT5mOTRmFgu.Y3K.ICc4On.m8b7MjX7XJi3."], ["activated", true], ["activated_at", 2016-09-16 19:11:02 UTC]]
+  [1m[35m (12.4ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-75@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Fabian Krajcik"], ["email", "fake-75@example.com"], ["created_at", 2016-09-16 19:11:02 UTC], ["updated_at", 2016-09-16 19:11:02 UTC], ["password_digest", "$2a$10$RE6RGTt1.aB6BxX1HDzHJe./cYJzjPLlb/kYE8nun1S6K9nk4adiG"], ["activation_digest", "$2a$10$yv4YLcII8.S7krcA5vjOuu1R8szt8kjwAyXhGUqhAM3tkZexAB0hi"], ["activated", true], ["activated_at", 2016-09-16 19:11:02 UTC]]
+  [1m[35m (12.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-76@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Mr. Eli D'Amore"], ["email", "fake-76@example.com"], ["created_at", 2016-09-16 19:11:02 UTC], ["updated_at", 2016-09-16 19:11:02 UTC], ["password_digest", "$2a$10$zRP91xQ7d8I4zIoLez4eM.D4c3lQDOjgM8YlCGu6FBp3hm8cQp8sS"], ["activation_digest", "$2a$10$JbiDmK0rB6Cn.1rhg012BeE8DLSyQqSEjjl6OvnxU.jjKtu95g68u"], ["activated", true], ["activated_at", 2016-09-16 19:11:02 UTC]]
+  [1m[35m (24.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-77@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Julie West"], ["email", "fake-77@example.com"], ["created_at", 2016-09-16 19:11:02 UTC], ["updated_at", 2016-09-16 19:11:02 UTC], ["password_digest", "$2a$10$t7jtUYFDZYLPzrh9/x2C6OtG4g/HJizXmE1r1mQAmKpnHts5VbLTG"], ["activation_digest", "$2a$10$21Mc1nOTBDPJ/T/hh4nPIe6OyWqq9b6NO2ub9x9c4F6J7eA4wYyWi"], ["activated", true], ["activated_at", 2016-09-16 19:11:02 UTC]]
+  [1m[35m (22.9ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-78@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Kade White"], ["email", "fake-78@example.com"], ["created_at", 2016-09-16 19:11:02 UTC], ["updated_at", 2016-09-16 19:11:02 UTC], ["password_digest", "$2a$10$whrJU3xacUKnCpcoBdDu1O7YSvGhQc0c9P2tzcQxbhdu5s8SxWKym"], ["activation_digest", "$2a$10$g73sZEee6QVLJ3HI2ycUXe7ryt0Ls1i2QTF0lwz6PTzvWGS.B5kWC"], ["activated", true], ["activated_at", 2016-09-16 19:11:02 UTC]]
+  [1m[35m (12.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.1ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-79@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Turner Romaguera"], ["email", "fake-79@example.com"], ["created_at", 2016-09-16 19:11:02 UTC], ["updated_at", 2016-09-16 19:11:02 UTC], ["password_digest", "$2a$10$xaxxEMjzeXRNWfFT93yedO48dY9Ws71Z0QOH2ct8uMZa.GHUJho6O"], ["activation_digest", "$2a$10$zyg1OZpR8ABAW/oun1rGZOCbkT0kLOB79rNNvCzS0qhmac.wg1Ww."], ["activated", true], ["activated_at", 2016-09-16 19:11:02 UTC]]
+  [1m[35m (12.3ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-80@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Dr. Brady Schumm"], ["email", "fake-80@example.com"], ["created_at", 2016-09-16 19:11:03 UTC], ["updated_at", 2016-09-16 19:11:03 UTC], ["password_digest", "$2a$10$CqnizYtFCciEr1eJ16NIQOSppE0zZIuQi9YxvvlUDBfZfQacY/oIy"], ["activation_digest", "$2a$10$ElwQhrpZEMO0s.iaFKUhUexpvr6aUosDb4i0CUqUyl/zsWOWfEXgW"], ["activated", true], ["activated_at", 2016-09-16 19:11:02 UTC]]
+  [1m[35m (16.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-81@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Dr. Ladarius Mosciski"], ["email", "fake-81@example.com"], ["created_at", 2016-09-16 19:11:03 UTC], ["updated_at", 2016-09-16 19:11:03 UTC], ["password_digest", "$2a$10$hXtR1PIIB13pEygI5VZl6.bvhz759zCT54afTmRZgmfhDHNtN.hXy"], ["activation_digest", "$2a$10$BMk04dH51V1FHKb8byaCMOjHGIzJyg2qJdk5230h4PNgoMIRl5Q1u"], ["activated", true], ["activated_at", 2016-09-16 19:11:03 UTC]]
+  [1m[35m (17.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-82@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Dr. Evelyn Sipes"], ["email", "fake-82@example.com"], ["created_at", 2016-09-16 19:11:03 UTC], ["updated_at", 2016-09-16 19:11:03 UTC], ["password_digest", "$2a$10$HrrZAUxMijx9PbX1G.VxIOHE2TtJ1b0mvneQVI9P7lp9Lkne12sEq"], ["activation_digest", "$2a$10$l9Q/gIwJXDZicKHDNC5u/.OtLK4Fc7VgJxadpsPSXfEuehLpF2qcW"], ["activated", true], ["activated_at", 2016-09-16 19:11:03 UTC]]
+  [1m[35m (11.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-83@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Grover Vandervort"], ["email", "fake-83@example.com"], ["created_at", 2016-09-16 19:11:03 UTC], ["updated_at", 2016-09-16 19:11:03 UTC], ["password_digest", "$2a$10$8Vp8P3ypVA3txUoUKw3GiOs7bh78Z2DDsZ.I/Th.yeimv3xhCWVwG"], ["activation_digest", "$2a$10$mUj8SWf23VKiXzaB9KY.Q.KR2gP2E1WTmPDD.0JnMecWO00WhoC3q"], ["activated", true], ["activated_at", 2016-09-16 19:11:03 UTC]]
+  [1m[35m (12.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-84@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Matt Klocko Sr."], ["email", "fake-84@example.com"], ["created_at", 2016-09-16 19:11:03 UTC], ["updated_at", 2016-09-16 19:11:03 UTC], ["password_digest", "$2a$10$.so7Zenvyp93MHgvRt5YGOWm6W9/HUTHNg8o8TenIN2X2ZhlXKfYi"], ["activation_digest", "$2a$10$WydQnVkkzKcYwmGt3wsvo.uoc6BF7RAO3.wakaRK2oW8oOqJIQCj6"], ["activated", true], ["activated_at", 2016-09-16 19:11:03 UTC]]
+  [1m[35m (12.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-85@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Wilhelmine Bergstrom"], ["email", "fake-85@example.com"], ["created_at", 2016-09-16 19:11:03 UTC], ["updated_at", 2016-09-16 19:11:03 UTC], ["password_digest", "$2a$10$BYNjA5ml8l4xEORaGa/SAO58oVb9Rg5.6Jjo2vcX9fFB.ZUsCyseG"], ["activation_digest", "$2a$10$8KTrqpNDnv4feWd7EXkvYOTUrjXzHnPlIM58jl4zo2LphwxL/vnl6"], ["activated", true], ["activated_at", 2016-09-16 19:11:03 UTC]]
+  [1m[35m (18.0ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-86@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Kaylie Dooley"], ["email", "fake-86@example.com"], ["created_at", 2016-09-16 19:11:03 UTC], ["updated_at", 2016-09-16 19:11:03 UTC], ["password_digest", "$2a$10$P.ot0WPKOqcLsniNjK9RRuMX/7nt2OlKFYxn0mTTo64ogUpezTwB."], ["activation_digest", "$2a$10$2Qy/U/wWDoTO5K1nYLF.ge3U33IfQtkGOiX9fe4MvQjFAyP8bWLBu"], ["activated", true], ["activated_at", 2016-09-16 19:11:03 UTC]]
+  [1m[35m (19.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-87@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.7ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Nicholas Brown MD"], ["email", "fake-87@example.com"], ["created_at", 2016-09-16 19:11:04 UTC], ["updated_at", 2016-09-16 19:11:04 UTC], ["password_digest", "$2a$10$3h.kLRpMhKRXJ6HAb8Dt3u2ivktMua2H7oSDHeQK2h/Y2Fgqut1bq"], ["activation_digest", "$2a$10$SdorHfzuyoJCESbTcwmK1uNtp2wbHaHu2MWqSKsQ4BpPOlhAdgqC2"], ["activated", true], ["activated_at", 2016-09-16 19:11:04 UTC]]
+  [1m[35m (17.2ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-88@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Cristina White Jr."], ["email", "fake-88@example.com"], ["created_at", 2016-09-16 19:11:04 UTC], ["updated_at", 2016-09-16 19:11:04 UTC], ["password_digest", "$2a$10$syehIcw3YE4Nc1JzXuExEOxTAaLYHVmA3WeqgzR8fS1snMG473vem"], ["activation_digest", "$2a$10$mFMxaSxt5zV/r1L/zu1Mk.vziQcK5jQ4/hxrKb4yuE1U0Gdx5qfpy"], ["activated", true], ["activated_at", 2016-09-16 19:11:04 UTC]]
+  [1m[35m (18.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-89@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Jonas Bailey"], ["email", "fake-89@example.com"], ["created_at", 2016-09-16 19:11:04 UTC], ["updated_at", 2016-09-16 19:11:04 UTC], ["password_digest", "$2a$10$bqQqcaBi78lTMruqt1surexbPePtP40DlAu8KPLNLSzFkvHmQMtgm"], ["activation_digest", "$2a$10$eVvwJhDE/7do8rqJZQZsu.nPw4SAhbQwqUJ.2ZuTY2rHlHiRNeZLu"], ["activated", true], ["activated_at", 2016-09-16 19:11:04 UTC]]
+  [1m[35m (12.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-90@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Giovanni Abernathy"], ["email", "fake-90@example.com"], ["created_at", 2016-09-16 19:11:04 UTC], ["updated_at", 2016-09-16 19:11:04 UTC], ["password_digest", "$2a$10$.DoWu18gil9g8h8RI/aqYumwIsQ6XOu6kzhTFSp0e2l.29vi6AuG2"], ["activation_digest", "$2a$10$yZJYAVafKtssl10vR89d6.CJ0x0kuMZT3OhXtcCDV0a34QrqDLYQi"], ["activated", true], ["activated_at", 2016-09-16 19:11:04 UTC]]
+  [1m[35m (11.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-91@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Crystal Hettinger"], ["email", "fake-91@example.com"], ["created_at", 2016-09-16 19:11:04 UTC], ["updated_at", 2016-09-16 19:11:04 UTC], ["password_digest", "$2a$10$KhlmDVchrCuRRWX5cG5qTe63S9ObsNlxY6.iAgb1SZrERIyRlDFhS"], ["activation_digest", "$2a$10$1OnvhxtFhnFfqM8mF7DMCewVWwCHZDugQDgcoSv2eaiWOYlJirln6"], ["activated", true], ["activated_at", 2016-09-16 19:11:04 UTC]]
+  [1m[35m (11.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-92@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Mr. Darwin Herman"], ["email", "fake-92@example.com"], ["created_at", 2016-09-16 19:11:04 UTC], ["updated_at", 2016-09-16 19:11:04 UTC], ["password_digest", "$2a$10$VkzwZ87V2KUC0d6hybmob.HET7hfusEfXhlNv16nJt92ibN0BSydW"], ["activation_digest", "$2a$10$TfKjmT7NhHPjxLFeD9n6t.brhA5xdjakuFcnHQA2gIKScLW2.ykHi"], ["activated", true], ["activated_at", 2016-09-16 19:11:04 UTC]]
+  [1m[35m (12.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-93@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Marta Dicki"], ["email", "fake-93@example.com"], ["created_at", 2016-09-16 19:11:04 UTC], ["updated_at", 2016-09-16 19:11:04 UTC], ["password_digest", "$2a$10$I38zvnpFCN8BTd0X1pBwx.BlGGIjWZqa6HKWRjhaxzbMOnMPsl8Cm"], ["activation_digest", "$2a$10$ORF2c1okQQMT8x0hG.nw3OUVL7qIKbKjKGeS6T86IONqTiROeramq"], ["activated", true], ["activated_at", 2016-09-16 19:11:04 UTC]]
+  [1m[35m (12.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.2ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-94@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (8.6ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Joannie Blanda"], ["email", "fake-94@example.com"], ["created_at", 2016-09-16 19:11:05 UTC], ["updated_at", 2016-09-16 19:11:05 UTC], ["password_digest", "$2a$10$RSx.12Y6asfwOdrPV72toukKeheIGcYf0rxGNDwMoYjf8pWxGckla"], ["activation_digest", "$2a$10$EJrJFYpUYs0Gp8zN7vND8O9kQTQKO4IEGFvevPy7OZSvC47zgtudq"], ["activated", true], ["activated_at", 2016-09-16 19:11:05 UTC]]
+  [1m[35m (12.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-95@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Greta Goyette"], ["email", "fake-95@example.com"], ["created_at", 2016-09-16 19:11:05 UTC], ["updated_at", 2016-09-16 19:11:05 UTC], ["password_digest", "$2a$10$03gxa4Kx6sT4XBZTcqMjuuOYNoLlbjEZv8THIyzK3QN7XOtNWh4Za"], ["activation_digest", "$2a$10$bSX5GguCS1BqUeSrWpo1DucLfQX1cawOFbhN5/7T7HrnWAJZ7IS4G"], ["activated", true], ["activated_at", 2016-09-16 19:11:05 UTC]]
+  [1m[35m (27.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-96@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Mr. Lavon Bauch"], ["email", "fake-96@example.com"], ["created_at", 2016-09-16 19:11:05 UTC], ["updated_at", 2016-09-16 19:11:05 UTC], ["password_digest", "$2a$10$da62RGXjrwK2IatzOBh6NOPSmlUPaJJkoYCQH2jSygbqpZdbBeFFq"], ["activation_digest", "$2a$10$88yMtpHbWH4pU3M6v8VoW.XH6TgHHoiMNHyG.wMHkWABvqDndLz5G"], ["activated", true], ["activated_at", 2016-09-16 19:11:05 UTC]]
+  [1m[35m (24.6ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-97@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Mrs. Miracle Bayer"], ["email", "fake-97@example.com"], ["created_at", 2016-09-16 19:11:05 UTC], ["updated_at", 2016-09-16 19:11:05 UTC], ["password_digest", "$2a$10$i.n5Ocat71d0706K4VAJhuzZjpdg0zXJ89v.aWBq/jChdjr9/X9CG"], ["activation_digest", "$2a$10$XMzcOacll3ic0JDous.AVud7p7Pe8PueV6JeLzgT31KepBYJydrz2"], ["activated", true], ["activated_at", 2016-09-16 19:11:05 UTC]]
+  [1m[35m (12.1ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-98@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Mr. Riley Stokes"], ["email", "fake-98@example.com"], ["created_at", 2016-09-16 19:11:05 UTC], ["updated_at", 2016-09-16 19:11:05 UTC], ["password_digest", "$2a$10$7G6Pize/n5YJU1VkJ0P8luE87nMiH9oCmm4qXJyvsIEM2rsKEJc.y"], ["activation_digest", "$2a$10$vmu.9FmQzebe/xrt6T.wSuMhIBaq/4gTB9XqYWBmY08plKCsDBGNK"], ["activated", true], ["activated_at", 2016-09-16 19:11:05 UTC]]
+  [1m[35m (16.8ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[36mUser Exists (0.2ms)[0m  [1m[34mSELECT  1 AS one FROM "users" WHERE LOWER("users"."email") = LOWER(?) LIMIT ?[0m  [["email", "fake-99@example.com"], ["LIMIT", 1]]
+  [1m[35mSQL (0.2ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "created_at", "updated_at", "password_digest", "activation_digest", "activated", "activated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["name", "Armand Nicolas"], ["email", "fake-99@example.com"], ["created_at", 2016-09-16 19:11:05 UTC], ["updated_at", 2016-09-16 19:11:05 UTC], ["password_digest", "$2a$10$IhnGdruHyRi/5cQDYWaFmujO4G2c7ZQBx1Xa1y/CKojLs14EXf6mC"], ["activation_digest", "$2a$10$B455q7l9/YRsFBA3qmftXOrDEpe9DlXu03g982mzgbxdVs9iPBaNm"], ["activated", true], ["activated_at", 2016-09-16 19:11:05 UTC]]
+  [1m[35m (12.4ms)[0m  [1m[36mcommit transaction[0m
