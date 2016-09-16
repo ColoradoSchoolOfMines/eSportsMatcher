@@ -7,6 +7,7 @@ A deployment of this application is hosted by Heroku at [https://e-sports-matche
 * Ruby (version 2.2.2 or newer)
 * Ruby on Rails (version 5 or newer)
 * sqlite3 (Heroku, the deployment environment uses postgres)
+
 ### Dependency Installation For Debian/Ubuntu Systems
 * Install ruby version 2.3 `sudo apt-get install ruby2.3 ruby2.3-dev`
 * Install sqlite3 `sudo apt-get install sqlite3`
