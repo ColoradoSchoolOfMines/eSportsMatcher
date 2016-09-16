@@ -7,11 +7,12 @@ class UsersController < ApplicationController
   # only admin users can destroy user accounts (through the destroy action of the controller)
   
   def index
-    @users = User.paginate(page: params[:page])
+    @users = User.where(activated: true).paginate(page: params[:page])
   end
   
   def show
     @user = User.find(params[:id])
+    redirect_to root_url and return unless @user.activated?
   end
 
   def new
@@ -21,7 +22,7 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.save
-      UserMailer.account_activation(@user).deliver_now
+      @user.send_activation_email
       flash[:success] = "Thank you for registering for the eSports matching engine! Please check your email to activate your account."
       redirect_to root_url
     else

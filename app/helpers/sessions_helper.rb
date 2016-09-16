@@ -27,7 +27,7 @@ module SessionsHelper
       user = User.find_by(id: user_id)  # find_by will return nil when no record is found
       # so find_by is more appropriate than find in this case
       # as find will return an error when no record is found
-      if user && user.authenticated?(cookies[:remember_token])
+      if user && user.authenticated?(:remember, cookies[:remember_token])
         log_in user
         @current_user = user
       end
