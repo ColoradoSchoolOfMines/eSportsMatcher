@@ -1,3 +1,13 @@
 <li>
 <%= link_to user.name, user %>
+<% if current_user.admin? && !current_user?(user) %>
+	| <%= link_to "delete", user, method: :delete,
+		data: { confirm: "You sure?" } %>
+	<!-- 
+		the DELETE request is "faked" by JavaScript and not a native capability of browsers
+		so if admin does not have JavaScript enabled ... this delete link won't work
+		BUT if you don't have JavaScript enabled ... I'd argue you don't deserve to delete users
+		so I won't bother to fake the delete with a Form+POST request
+	-->
+<% end %>
 </li>
