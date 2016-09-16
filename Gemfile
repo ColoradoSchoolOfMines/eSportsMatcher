@@ -1,5 +1,9 @@
 source 'https://rubygems.org'
 
+# gems for pagination ...
+gem 'will_paginate',           '3.1.0'
+gem 'bootstrap-will_paginate', '0.0.10'
+
 # Use bcrypt for cryptography/hash functions
 gem 'bcrypt'
 # Use boostrap-sass for bootstrap css
@@ -45,6 +49,8 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  # Faker allows us to make sample users with semi-realistic names and email addresses
+  gem 'faker',          '1.6.3'
 end
 
 group :test do
