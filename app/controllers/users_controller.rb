@@ -21,9 +21,9 @@ class UsersController < ApplicationController
   def create
     @user = User.create(user_params)
     if @user.save
-      log_in @user
-      flash[:success] = "Thank you for registering for the eSports matching engine!"
-      redirect_to @user
+      UserMailer.account_activation(@user).deliver_now
+      flash[:success] = "Thank you for registering for the eSports matching engine! Please check your email to activate your account."
+      redirect_to root_url
     else
       render 'new'
     end
