@@ -11,7 +11,8 @@
 User.create!(name: "Example User",
              email: "fake@example.com",
              password:  "password",
-             password_confirmation:  "password")
+             password_confirmation:  "password",
+             admin: true)
 
 # Create 99 more users
 99.times do |n|
