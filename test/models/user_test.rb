@@ -3,7 +3,8 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   def setup
     @user = User.new(name: "Example User", email: "user@example.com",
-                    password: "foobar", password_confirmation: "foobar")
+                    password: "foobar", password_confirmation: "foobar",
+                    summoner_name: "Darshan")
   end
 
   test "should be valid" do
@@ -17,6 +18,19 @@ class UserTest < ActiveSupport::TestCase
 
   test "email should be present" do
     @user.email = "     "
+    assert_not @user.valid?
+  end
+
+  test "summoner name should be present" do
+    @user.summoner_name = "     "
+    assert_not @user.valid?
+  end
+
+  test "summoner name should be valid format" do
+    # TODO: this test has terrible test coverage ...
+    @user.summoner_name = "Darshan"
+    assert @user.valid?
+    @user.summoner_name = "$@#"
     assert_not @user.valid?
   end
 
