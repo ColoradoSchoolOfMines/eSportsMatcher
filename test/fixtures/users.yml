@@ -6,6 +6,7 @@ test_user:
         admin: true
         activated: true
         activated_at: <%= Time.zone.now %>
+        summoner_name: ralph
 
 darth:
         name: Alice Bob
@@ -13,6 +14,7 @@ darth:
         password_digest: <%= User.digest('password') %>
         activated: true
         activated_at: <%= Time.zone.now %>
+        summoner_name: darth
 
 archer:
   name: Sterling Archer
@@ -20,6 +22,7 @@ archer:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
+  summoner_name: duchess
 
 lana:
   name: Lana Kane
@@ -27,6 +30,7 @@ lana:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
+  summoner_name: LANA
 
 malory:
   name: Malory Archer
@@ -34,6 +38,7 @@ malory:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
+  summoner_name: malory
 
 <% 30.times do |n| %>
 user_<%= n %>:
@@ -42,4 +47,5 @@ user_<%= n %>:
   password_digest: <%= User.digest('password') %>
   activated: true
   activated_at: <%= Time.zone.now %>
+  summoner_name: <%= "summoner-#{n}" %>
 <% end %>
