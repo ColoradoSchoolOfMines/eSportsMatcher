@@ -1,6 +1,9 @@
 # Don't include vim swap files
 *.swp
 
+# Don't invlude environment variable files
+config/env.*.yml
+
 *.gem
 *.rbc
 /.config
