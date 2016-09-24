@@ -8,11 +8,13 @@ A deployment of this application is hosted by Heroku at [https://e-sports-matche
 * Ruby on Rails (version 5 or newer)
 * sqlite3 (Heroku, the deployment environment uses postgres)
 * An API key from Riot Games
+
 ### Dependency Installation For Debian/Ubuntu Systems
 * Install ruby version 2.3 `sudo apt-get install ruby2.3 ruby2.3-dev`
 * Install sqlite3 `sudo apt-get install sqlite3`
 * Install rails `sudo gem install rails`
 * Once complete you should be able to successfully run `sqlite3 --version`, `ruby -v`, and `rails --version` and ensure your versions meet the dependency requirements of the previous section.
+
 ### Get an API Key and Setup your Environment Variables
 * Get an API key from Riot Games [here](https://developer.riotgames.com), you will need to register for a League of Legends account first.
 * In the eSportsMatcher/ directory, run `echo 'riot_api_key: "<YOUR_KEY>"' > config/env.development.yml` (where <YOUR_KEY> is ... your key)

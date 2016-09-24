@@ -64,9 +64,10 @@ class UsersController < ApplicationController
       level = json["summonerLevel"]
       profileIcon = json["profileIconId"]
       riot_id = json["id"]
-      # TODO: don't pull summoner data if it has been pulled recently, and if it's been pulled ever then we want to update - not create
-      # TODO: DOING THIS WILL REDUCE THE NUMBER OF API CALLS WHICH IS NECESSARY!
-      @user.create_summoner(summonerLevel: level, name: key, riot_id: riot_id, profileIconId: profileIcon)
+      # TODO: pull summoner data if we have never, or if it is "stale"/old
+      if @user.summoner.nil?
+        @user.create_summoner(summonerLevel: level, name: key, riot_id: riot_id, profileIconId: profileIcon)
+      end
 
       update_stats
     end
@@ -76,8 +77,8 @@ class UsersController < ApplicationController
    # but I couldn't get that to work easily
   def update_stats
     url = "https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/#{@user.summoner.riot_id}/summary?api_key=#{ENV['riot_api_key']}"
-    json = HTTParty.get(url)['playerStatSummaries']
-    @player_stats_json = json
+    json = HTTParty.get(url)
+    @player_stats_json = json['playerStatSummaries']
   end
 
   private
