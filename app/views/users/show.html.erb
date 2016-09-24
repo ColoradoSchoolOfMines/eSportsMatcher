@@ -6,9 +6,31 @@
 			<h1><%= @user.email %></h1>
 			<% if @summoner.present? %>
 				<h1>LoL Summoner: <%= render @summoner %></h1>
-<% end %>
+			<% end %>
+			<% if @player_stats_json.nil? %>
+				<h4>No Summoner Data Associated with User</h4>
+			<% end %>
 		</section>
 	</aside>
-	<div class="cold-md-8 summoner">
+	<div class="col-md-8">
+		<% unless @player_stats_json.nil? %>
+		<h1>League of Legends Summoner Wins/Losses</h1>
+		<table class="table table-hover">
+			<thead>
+				<th>Queue Type</th>
+				<th>Wins</th>
+				<th>Losses (for ranked only)</th>
+			</thead>
+			<tbody>
+			<% @player_stats_json.each do |stats| %>
+			<tr>
+				<td><%= stats["playerStatSummaryType"] %></td>
+				<td><%= stats["wins"] %></td>
+				<td><%= stats["losses"] unless stats["losses"].nil? %><%= "-" if stats["losses"].nil? %></td>
+			</tr>
+			<% end %>
+			</tbody>
+		</table>
+	<% end %>
 	</div>
 </div>

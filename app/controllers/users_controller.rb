@@ -26,6 +26,8 @@ class UsersController < ApplicationController
     if @user.save
       @user.send_activation_email
       flash[:success] = "Thank you for registering for the eSports matching engine! Please check your email to activate your account."
+      pull_summoner_data
+      @summoner = @user.summoner
       redirect_to root_url
     else
       render 'new'
@@ -62,9 +64,21 @@ class UsersController < ApplicationController
       level = json["summonerLevel"]
       profileIcon = json["profileIconId"]
       riot_id = json["id"]
+      # TODO: don't pull summoner data if it has been pulled recently, and if it's been pulled ever then we want to update - not create
+      # TODO: DOING THIS WILL REDUCE THE NUMBER OF API CALLS WHICH IS NECESSARY!
       @user.create_summoner(summonerLevel: level, name: key, riot_id: riot_id, profileIconId: profileIcon)
+
+      update_stats
     end
    end
+
+   # TODO: This should probably be associated with the summoner controller or model
+   # but I couldn't get that to work easily
+  def update_stats
+    url = "https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/#{@user.summoner.riot_id}/summary?api_key=#{ENV['riot_api_key']}"
+    json = HTTParty.get(url)['playerStatSummaries']
+    @player_stats_json = json
+  end
 
   private
     def user_params
