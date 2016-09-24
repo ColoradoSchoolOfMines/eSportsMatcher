@@ -34,6 +34,14 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
+  test "associated summoner should be destroyed" do
+    @user.save
+    @user.create_summoner
+    assert_difference 'Summoner.count', -1 do
+      @user.destroy
+    end
+  end
+
   test "name should not be too long" do
     @user.name = "a" * 51
     assert_not @user.valid?

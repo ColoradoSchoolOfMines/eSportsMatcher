@@ -4,7 +4,11 @@
 		<section class="user_info">
 			<h1><%= @user.name %></h1>
 			<h1><%= @user.email %></h1>
-			<code><%= @summoner_data %></code>
+			<% if @summoner.present? %>
+				<h1>LoL Summoner: <%= render @summoner %></h1>
+<% end %>
 		</section>
 	</aside>
+	<div class="cold-md-8 summoner">
+	</div>
 </div>

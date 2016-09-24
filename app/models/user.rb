@@ -10,7 +10,9 @@ class User < ApplicationRecord
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   VALID_SUMMONER_NAME_REGEX = /\A[0-9a-zA-Z _\\.]+\z/
+  # TODO: We currently require a LoL username ... do we want to require this? maybe add a link to LoL register page on our register page?
   validates :summoner_name, presence: true, format: { with: VALID_SUMMONER_NAME_REGEX }
+  has_one :summoner, dependent: :destroy
 
   # Returns the hash digest of the given string
   def User.digest(string)
@@ -22,7 +24,7 @@ class User < ApplicationRecord
   def User.new_token
         SecureRandom.urlsafe_base64
   end
-  
+
   # Remembers a user in the database for use in persistent sessions
   def remember
     self.remember_token = User.new_token

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160924173114) do
+ActiveRecord::Schema.define(version: 20160924175513) do
 
   create_table "summoners", force: :cascade do |t|
     t.integer  "riot_id"
@@ -37,7 +37,9 @@ ActiveRecord::Schema.define(version: 20160924173114) do
     t.string   "reset_digest"
     t.datetime "reset_sent_at"
     t.string   "summoner_name"
+    t.integer  "summoner_id"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["summoner_id"], name: "index_users_on_summoner_id"
   end
 
 end
