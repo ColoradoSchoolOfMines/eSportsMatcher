@@ -31,7 +31,7 @@ class UsersSignupTest < ActionDispatch::IntegrationTest
                                          email: "user@example.com",
                                          password:              "password",
                                          password_confirmation: "password",
-                                         summoner_name: "Darshan" } }
+                                         summoner_name: "RiotSchmick" } }
     end
     assert_equal 1, ActionMailer::Base.deliveries.size
     user = assigns(:user)

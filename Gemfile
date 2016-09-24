@@ -4,6 +4,9 @@ source 'https://rubygems.org'
 gem 'will_paginate',           '3.1.0'
 gem 'bootstrap-will_paginate', '0.0.10'
 
+# time to httparty so we can make external api calls
+gem 'httparty'
+
 # Use bcrypt for cryptography/hash functions
 gem 'bcrypt'
 # Use boostrap-sass for bootstrap css

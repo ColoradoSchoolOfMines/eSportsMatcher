@@ -12,6 +12,7 @@ class UsersController < ApplicationController
   
   def show
     @user = User.find(params[:id])
+    pull_summoner_data
     redirect_to root_url and return unless @user.activated?
   end
 
@@ -49,6 +50,12 @@ class UsersController < ApplicationController
      @user.destroy
      flash[:success] = "User #{@user.name} deleted"
      redirect_to users_url
+   end
+
+   def pull_summoner_data
+    return if @user.summoner_name.nil?
+    url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/#{@user.summoner_name}?api_key=#{ENV['riot_api_key']}"
+    @summoner_data = HTTParty.get(url)
    end
 
   private
