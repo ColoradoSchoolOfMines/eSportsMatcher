@@ -56,6 +56,10 @@ class UsersController < ApplicationController
     return if @user.summoner_name.nil?
     url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/#{@user.summoner_name}?api_key=#{ENV['riot_api_key']}"
     @summoner_data = HTTParty.get(url)
+    unless @summoner_data["status"].nil?
+      # api request will not have a "status" field if it succeeded
+      @summoner_data = "No Summoner Data Found"
+    end
    end
 
   private
