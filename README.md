@@ -56,7 +56,7 @@ A deployment of this application is hosted by Heroku at [https://e-sports-matche
 * Tuesday, November 15: TBD
 * Tuesday, November 22: TBD
 * Tuesday, November 29: Improve UX (User Experience)
-* Tuesday, Devember 6: Beta Release Party!
+* Tuesday, December 6: Beta Release Party!
 
 ## Releases
 * v0.0.1 - more or less the same user registration, authentication, and authorization as the [railstutorial](https://www.railstutorial.org/book/beginning) up through chapter 12
