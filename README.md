@@ -60,3 +60,14 @@ A deployment of this application is hosted by Heroku at [https://e-sports-matche
 
 ## Releases
 * v0.0.1 - more or less the same user registration, authentication, and authorization as the [railstutorial](https://www.railstutorial.org/book/beginning) up through chapter 12
+
+
+## Interesting Stats to Get through Riot (may require more than just a simple API call)
+* Summoner Rank (league + division)
+* Rank over time? - Season to season (competitive seasons)
+* Most played champions (probably poll their game history and add up games)
+
+## Stats to keep track of on website side
+* tournaments played in at Mines
+* results from tournaments at Mines
+* Estimation of "skill" based on win/losses
