@@ -11,7 +11,7 @@ class User < ApplicationRecord
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   VALID_SUMMONER_NAME_REGEX = /\A[0-9a-zA-Z _\\.]+\z/
   # TODO: We currently require a LoL username ... do we want to require this? maybe add a link to LoL register page on our register page?
-  validates :summoner_name, presence: true, format: { with: VALID_SUMMONER_NAME_REGEX }
+  validates :summoner_name, format: { with: VALID_SUMMONER_NAME_REGEX }
   has_one :summoner, dependent: :destroy
 
   # Returns the hash digest of the given string

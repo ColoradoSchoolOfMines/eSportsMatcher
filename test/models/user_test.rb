@@ -21,15 +21,11 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.valid?
   end
 
-  test "summoner name should be present" do
-    @user.summoner_name = "     "
-    assert_not @user.valid?
-  end
-
   test "summoner name should be valid format" do
-    # TODO: this test has terrible test coverage ...
+    # this test has terrible test coverage ...
     @user.summoner_name = "Darshan"
     assert @user.valid?
+
     @user.summoner_name = "$@#"
     assert_not @user.valid?
   end

@@ -65,6 +65,7 @@ class UsersController < ApplicationController
       profileIcon = json["profileIconId"]
       riot_id = json["id"]
       # TODO: pull summoner data if we have never, or if it is "stale"/old
+      # TODO: we should also probably pull summoner data upon registration and reject the POST if we get a 404 for their summoner name
       if @user.summoner.nil?
         @user.create_summoner(summonerLevel: level, name: key, riot_id: riot_id, profileIconId: profileIcon)
       end
