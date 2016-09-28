@@ -12,8 +12,10 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    pull_summoner_data
-    @summoner = @user.summoner
+    unless @user.summoner.nil?
+      @user.summoner.update
+      @summoner = @user.summoner
+    end
     redirect_to root_url and return unless @user.activated?
   end
 
@@ -26,8 +28,7 @@ class UsersController < ApplicationController
     if @user.save
       @user.send_activation_email
       flash[:success] = "Thank you for registering for the eSports matching engine! Please check your email to activate your account."
-      pull_summoner_data
-      @summoner = @user.summoner
+      create_summoner
       redirect_to root_url
     else
       render 'new'
@@ -42,6 +43,7 @@ class UsersController < ApplicationController
      @user = User.find(params[:id])
      if @user.update_attributes(user_params)
        flash[:success] = "Profile updated"
+       create_summoner
        redirect_to @user
      else
        render 'edit'
@@ -54,33 +56,6 @@ class UsersController < ApplicationController
      flash[:success] = "User #{@user.name} deleted"
      redirect_to users_url
    end
-
-   def pull_summoner_data
-    return if @user.summoner_name.nil?
-    url = "https://na.api.pvp.net/api/lol/na/v1.4/summoner/by-name/#{@user.summoner_name}?api_key=#{ENV['riot_api_key']}"
-    key = @user.summoner_name.downcase
-    json = HTTParty.get(url)[key]
-    unless json.nil?
-      level = json["summonerLevel"]
-      profileIcon = json["profileIconId"]
-      riot_id = json["id"]
-      # TODO: pull summoner data if we have never, or if it is "stale"/old
-      # TODO: we should also probably pull summoner data upon registration and reject the POST if we get a 404 for their summoner name
-      if @user.summoner.nil?
-        @user.create_summoner(summonerLevel: level, name: key, riot_id: riot_id, profileIconId: profileIcon)
-      end
-
-      update_stats
-    end
-   end
-
-   # TODO: This should probably be associated with the summoner controller or model
-   # but I couldn't get that to work easily
-  def update_stats
-    url = "https://na.api.pvp.net/api/lol/na/v1.3/stats/by-summoner/#{@user.summoner.riot_id}/summary?api_key=#{ENV['riot_api_key']}"
-    json = HTTParty.get(url)
-    @player_stats_json = json['playerStatSummaries']
-  end
 
   private
     def user_params
@@ -107,5 +82,13 @@ class UsersController < ApplicationController
 
     def admin_user
       redirect_to root_url unless current_user.admin?
+    end
+
+    def create_summoner
+      unless @user.summoner_name.blank?
+        # We allow users to register without providing a summoner name
+        @user.create_summoner(name: @user.summoner_name)
+        @user.summoner.update
+      end
     end
 end

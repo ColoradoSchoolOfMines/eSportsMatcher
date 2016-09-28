@@ -22,12 +22,25 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "summoner name should be valid format" do
-    # this test has terrible test coverage ...
-    @user.summoner_name = "Darshan"
-    assert @user.valid?
+    valid_names = %w[Riot Darshan Schmick Dan]
+    valid_names.each do |name|
+      @user.summoner_name = name
+      assert @user.valid?, "#{name} should be valid"
+    end
 
-    @user.summoner_name = "$@#"
-    assert_not @user.valid?
+    invalid_names = %w[$@# !@ #]
+    invalid_names.each do |name|
+      @user.summoner_name = name
+      assert_not @user.valid?, "#{name} should not be valid"
+    end
+  end
+
+  test "empty summoner name is allowed and should result in a nil summoner" do
+    @user = User.new(name: "Test User", email: "user25@example.com",
+                    password: "foobar", password_confirmation: "foobar",
+                    summoner_name: "")
+    assert @user.valid?, "User is valid"
+    assert @user.summoner.nil?, "Summoner should be nil for name '#{@user.summoner_name}'"
   end
 
   test "associated summoner should be destroyed" do
