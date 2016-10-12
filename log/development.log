@@ -3850,3 +3850,13 @@ Processing by SessionsController#new as HTML
 Completed 200 OK in 95ms (Views: 92.8ms | ActiveRecord: 0.0ms)
 
 
+Started GET "/" for 127.0.0.1 at 2016-10-11 18:10:49 -0600
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by WelcomeController#index as HTML
+  Rendering welcome/index.html.erb within layouts/application
+  Rendered welcome/index.html.erb within layouts/application (35.6ms)
+  Rendered layouts/_header.html.erb (10.1ms)
+  Rendered layouts/_footer.html.erb (3.6ms)
+Completed 200 OK in 1033ms (Views: 1000.9ms | ActiveRecord: 0.0ms)
+
+
