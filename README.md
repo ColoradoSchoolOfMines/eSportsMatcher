@@ -13,6 +13,7 @@ A deployment of this application is hosted by Heroku at [https://e-sports-matche
 * Install sqlite3 `sudo apt-get install sqlite3`
 * Install rails `sudo gem install rails`
 * Once complete you should be able to successfully run `sqlite3 --version`, `ruby -v`, and `rails --version` and ensure your versions meet the dependency requirements of the previous section.
+* `sudo apt-get install libpq-dev` might be required to successfully use `gem install pg` 
 
 ## Installation Instructions
 * Clone the repo: `git clone https://github.com/ColoradoSchoolOfMines/eSportsMatcher.git`
