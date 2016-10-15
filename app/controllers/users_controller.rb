@@ -1,12 +1,13 @@
 class UsersController < ApplicationController
+  before_action :find_user, only: [:show, :edit, :update, :destroy, :correct_user]
+  # finds current user before performing per-user actions (showing a user, editing that user, etc.)
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   # before controller does edit or update actions - check for logged_in_user
   before_action :correct_user, only: [:edit, :update]
   # correct_user must be logged in to do edit/update actions
   before_action :admin_user, only: :destroy
   # only admin users can destroy user accounts (through the destroy action of the controller)
-  before_action :find_user, only: [:show, :edit, :update, :destroy, :correct_user]
-  # finds current user before performing per-user actions (showing a user, editing that user, etc.)
+  
 
   def find_user
     @user = User.find(params[:id]);
