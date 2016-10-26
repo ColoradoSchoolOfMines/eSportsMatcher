@@ -9,6 +9,9 @@ class User < ApplicationRecord
                     uniqueness: { case_sensitive: false }
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
+  VALID_SUMMONER_NAME_REGEX = /\A[0-9a-zA-Z _\\.]+\z/
+  validates :summoner_name, format: { with: VALID_SUMMONER_NAME_REGEX }, allow_blank: true
+  has_one :summoner, dependent: :destroy
 
   # Returns the hash digest of the given string
   def User.digest(string)
@@ -20,7 +23,7 @@ class User < ApplicationRecord
   def User.new_token
         SecureRandom.urlsafe_base64
   end
-  
+
   # Remembers a user in the database for use in persistent sessions
   def remember
     self.remember_token = User.new_token

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  riot_id: 1
+  name: MyString
+  profileIconId: 1
+  summonerLevel: 1
+  user: one
+
+two:
+  riot_id: 1
+  name: MyString
+  profileIconId: 1
+  summonerLevel: 1
+  user: two

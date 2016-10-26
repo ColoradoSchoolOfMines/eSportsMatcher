@@ -4,6 +4,7 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
 
   def setup
     @user = users(:test_user)
+    @user.create_summoner(name: "RiotSchmick")
   end
 
   test "login with invalid information" do

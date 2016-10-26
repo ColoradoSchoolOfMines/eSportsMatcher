@@ -7,6 +7,7 @@ A deployment of this application is hosted by Heroku at [https://e-sports-matche
 * Ruby (version 2.2.2 or newer)
 * Ruby on Rails (version 5 or newer)
 * sqlite3 (Heroku, the deployment environment uses postgres)
+* An API key from Riot Games
 
 ### Dependency Installation For Debian/Ubuntu Systems
 * Install ruby version 2.3 `sudo apt-get install ruby2.3 ruby2.3-dev`
@@ -14,6 +15,11 @@ A deployment of this application is hosted by Heroku at [https://e-sports-matche
 * Install rails `sudo gem install rails`
 * Once complete you should be able to successfully run `sqlite3 --version`, `ruby -v`, and `rails --version` and ensure your versions meet the dependency requirements of the previous section.
 * `sudo apt-get install libpq-dev` might be required to successfully use `gem install pg` 
+
+### Get an API Key and Setup your Environment Variables
+* Get an API key from Riot Games [here](https://developer.riotgames.com), you will need to register for a League of Legends account first.
+* In the eSportsMatcher/ directory, run `echo 'riot_api_key: "<YOUR_KEY>"' > config/env.development.yml` (where <YOUR_KEY> is ... your key)
+* You can verify by running `echo "ENV['riot_api_key']" | rails c` and seeing that your api key is output
 
 ## Installation Instructions
 * Clone the repo: `git clone https://github.com/ColoradoSchoolOfMines/eSportsMatcher.git`
@@ -46,18 +52,18 @@ A deployment of this application is hosted by Heroku at [https://e-sports-matche
 
 ## Project Schedule
 * Tuesday, September 13: As a group, gain a basic understanding of web development using Ruby on Rails
-* Tuesday, September 20: Write an extensive rails style guide to prevent style-induced vomitting 
+* Tuesday, September 20: Intro to git, REST, MVC; trying to convince Yash not to use Windows for development
 * Tuesday, September 27: User pages to register and view/edit profiles
-* Tuesday, October 4: TBD
-* Tuesday, October 11: Admins can create League of Legends tournaments, Users can register for the tournaments
-* Tuesday, October 18: TBD
+* Tuesday, October 4: Solidify the relationship of the User and Summoner so their interactions aren't a mess
+* Tuesday, October 11: Work on understanding ruby paradigms
+* Tuesday, October 18: Admins can create League of Legends tournaments, Users can register for the tournaments
 * Tuesday, October 25: Admin can generate teams
 * Tuesday, November 1: TBD
 * Tuesday, November 8: Admin can generate brackets and control their progression as the tournament progresses
 * Tuesday, November 15: TBD
 * Tuesday, November 22: TBD
 * Tuesday, November 29: Improve UX (User Experience)
-* Tuesday, December 6: Beta Release Party!
+* Tuesday, Devember 6: Alpha Release Party!
 
 ## Releases
 * v0.0.1 - more or less the same user registration, authentication, and authorization as the [railstutorial](https://www.railstutorial.org/book/beginning) up through chapter 12

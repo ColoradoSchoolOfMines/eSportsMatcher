@@ -7,6 +7,10 @@
 	<%= f.label :email %>
 	<%= f.email_field :email, class: 'form-control' %>
 
+	<%= f.label :summoner_name %>
+	<%= link_to "(Register for League of Legends)", "https://signup.na.leagueoflegends.com/en/signup/index?realm_key=na" %>
+	<%= f.text_field :summoner_name, class: 'form-control' %>
+
 	<%= f.label :password %>
 	<%= f.password_field :password, class: 'form-control' %>
 

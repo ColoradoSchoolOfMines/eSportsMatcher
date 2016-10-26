@@ -3,7 +3,8 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
   def setup
     @user = User.new(name: "Example User", email: "user@example.com",
-                    password: "foobar", password_confirmation: "foobar")
+                    password: "foobar", password_confirmation: "foobar",
+                    summoner_name: "Darshan")
   end
 
   test "should be valid" do
@@ -18,6 +19,36 @@ class UserTest < ActiveSupport::TestCase
   test "email should be present" do
     @user.email = "     "
     assert_not @user.valid?
+  end
+
+  test "summoner name should be valid format" do
+    valid_names = %w[Riot Darshan Schmick Dan]
+    valid_names.each do |name|
+      @user.summoner_name = name
+      assert @user.valid?, "#{name} should be valid"
+    end
+
+    invalid_names = %w[$@# !@ #]
+    invalid_names.each do |name|
+      @user.summoner_name = name
+      assert_not @user.valid?, "#{name} should not be valid"
+    end
+  end
+
+  test "empty summoner name is allowed and should result in a nil summoner" do
+    @user = User.new(name: "Test User", email: "user25@example.com",
+                    password: "foobar", password_confirmation: "foobar",
+                    summoner_name: "")
+    assert @user.valid?, "User is valid"
+    assert @user.summoner.nil?, "Summoner should be nil for name '#{@user.summoner_name}'"
+  end
+
+  test "associated summoner should be destroyed" do
+    @user.save
+    @user.create_summoner
+    assert_difference 'Summoner.count', -1 do
+      @user.destroy
+    end
   end
 
   test "name should not be too long" do
