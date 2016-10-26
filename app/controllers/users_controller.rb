@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  before_action :find_user, only: [:show, :edit, :update, :destroy, :correct_user]
+  # finds current user before performing per-user actions (showing a user, editing that user, etc.)
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   # before controller does edit or update actions - check for logged_in_user
   before_action :correct_user, only: [:edit, :update]
@@ -6,12 +8,16 @@ class UsersController < ApplicationController
   before_action :admin_user, only: :destroy
   # only admin users can destroy user accounts (through the destroy action of the controller)
   
+
+  def find_user
+    @user = User.find(params[:id]);
+  end
+
   def index
     @users = User.where(activated: true).paginate(page: params[:page])
   end
 
   def show
-    @user = User.find(params[:id])
     unless @user.summoner.nil?
       @user.summoner.update
       @summoner = @user.summoner
@@ -36,11 +42,9 @@ class UsersController < ApplicationController
   end
 
    def edit
-     @user = User.find(params[:id])
    end
 
    def update
-     @user = User.find(params[:id])
      if @user.update_attributes(user_params)
        flash[:success] = "Profile updated"
        create_summoner
@@ -51,7 +55,6 @@ class UsersController < ApplicationController
    end
 
    def destroy
-     @user = User.find(params[:id])
      @user.destroy
      flash[:success] = "User #{@user.name} deleted"
      redirect_to users_url
@@ -76,7 +79,6 @@ class UsersController < ApplicationController
 
     # Confirms logged-in as correct user.
     def correct_user 
-      @user = User.find(params[:id])
       redirect_to root_url unless current_user?(@user)
     end
 
