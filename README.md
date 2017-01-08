@@ -56,14 +56,6 @@ A deployment of this application is hosted by Heroku at [https://e-sports-matche
 * Tuesday, September 27: User pages to register and view/edit profiles
 * Tuesday, October 4: Solidify the relationship of the User and Summoner so their interactions aren't a mess
 * Tuesday, October 11: Work on understanding ruby paradigms
-* Tuesday, October 18: Admins can create League of Legends tournaments, Users can register for the tournaments
-* Tuesday, October 25: Admin can generate teams
-* Tuesday, November 1: TBD
-* Tuesday, November 8: Admin can generate brackets and control their progression as the tournament progresses
-* Tuesday, November 15: TBD
-* Tuesday, November 22: TBD
-* Tuesday, November 29: Improve UX (User Experience)
-* Tuesday, Devember 6: Alpha Release Party!
 
 ## Releases
 * v0.0.1 - more or less the same user registration, authentication, and authorization as the [railstutorial](https://www.railstutorial.org/book/beginning) up through chapter 12
